@@ -1,0 +1,6 @@
+.cspell
+.devcontainer
+.vscode
+__pycache__
+docs/__open_alchemy_*
+/log

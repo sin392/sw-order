@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  api:
+    image: sw_back_api_dev
+    container_name: sw_back_api_dev
+    build:
+      context: ./docker/api
+      dockerfile: Dockerfile
+      target: development
+    tty: true
+    volumes:
+      - ./app:/home/app:cached
+      - ./db:/home/db:cached
+      - ./docs:/home/docs:cached # for migrate
+      - ./docker/my.cnf:/etc/mysql/conf.d/my.cnf:cached
+    env_file:
+      - .env.development
+    depends_on:
+      - db
+
+  db:
+    image: sw_back_db_dev
+    container_name: sw_back_db_dev
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - ./log/db:/var/log/mysql:cached
+      - ./docker/my.cnf:/etc/mysql/conf.d/my.cnf:cached
+    env_file:
+      - .env.development
