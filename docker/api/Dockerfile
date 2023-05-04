@@ -13,7 +13,7 @@ ARG APP_DIR=/home/app
 
 RUN groupadd -g $GID $GROUPNAME && \
     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
-USER user
+USER $USERNAME
 WORKDIR $APP_DIR
 ENV PYTHONPATH=$APP_DIR
 
@@ -23,7 +23,10 @@ RUN pip install -U & pip install --user -r requirements.txt
 
 # development
 FROM base as development
+USER root
+RUN apt install --no-install-recommends -y vim
 
+USER $USERNAME
 ENV APP_ENV=development
 RUN pip install --user autopep8 flake8
 

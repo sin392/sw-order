@@ -8,6 +8,7 @@ services:
       context: ./docker/api
       dockerfile: Dockerfile
       target: development
+    user: root # non-rootだとマウントしたファイル操作できないため
     tty: true
     volumes:
       - ./app:/home/app:cached

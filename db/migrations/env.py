@@ -7,11 +7,11 @@ from sqlalchemy import pool
 from alembic import context
 
 import open_alchemy
-from database import DATABASE  # /root/app/database with PYTHONPATH=/root/app
+from database import DATABASE  # /home/app/database with PYTHONPATH=/home/app
 
 # ref: https://openapi-sqlalchemy.readthedocs.io/en/latest/index.html#alembic
 # TODO: 相対パスとか環境変数に変更したい
-open_alchemy.init_yaml(spec_filename="/root/docs/openapi.yml")
+open_alchemy.init_yaml(spec_filename="/home/docs/openapi.yml")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -1,7 +1,7 @@
 # ディレクトリ名抽象化したい
-app_dir = /app_dir
-db_dir = /root/db
-docs_dir = /root/docs
+app_dir = /home/app_dir
+db_dir = /home/db
+docs_dir = /home/docs
 revision = ""
 
 generate-revision:
