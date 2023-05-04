@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fastapi import FastAPI
-from .routers import {{ routers | join(", ") }}
+from routers import {{ routers | join(", ") }}
 
 app = FastAPI(
     {% if info %}
