@@ -3,15 +3,15 @@ info:
   title: API Title
   version: '1.0'
 tags:
-  - name: User API
-  - name: Affiliate API
+  - name: User
+  - name: Affiliate
 servers:
   - url: https://api.server.test/v1
 paths:
   /users:
     get:
       tags:
-        - User API
+        - User
       responses:
         '200':
           description: ユーザ一覧の取得
@@ -23,7 +23,7 @@ paths:
                     $ref: '#/components/schemas/User'
     post:
       tags:
-        - User API
+        - User
       requestBody:
         required: true
         content:
@@ -61,7 +61,7 @@ paths:
   /affiliates:
     get:
       tags:
-        - Affiliate API
+        - Affiliate
       responses:
         '200':
           description: Success
@@ -73,7 +73,7 @@ paths:
                     $ref: '#/components/schemas/Affiliate'
     post:
       tags:
-        - Affiliate API
+        - Affiliate
       requestBody:
         required: true
         content:
