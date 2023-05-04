@@ -10,10 +10,10 @@ ARG GROUPNAME=user
 ARG UID=1000
 ARG GID=1000
 ARG APP_DIR=/home/app
+ARG PKG_DIR=/usr/local/lib/python3.11/site-packages
 
 WORKDIR $APP_DIR
-ENV PYTHONPATH=$APP_DIR
-
+ENV PYTHONPATH=$APP_DIR:$PKG_DIR
 # alembicは本番ではいらないかも
 COPY requirements.txt .
 RUN pip install -U & pip install -r requirements.txt
@@ -24,7 +24,7 @@ USER $USERNAME
 
 # development
 FROM base as development
-COPY --from=base /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages/
+COPY --from=base $PKG_DIR $PKG_DIR/
 USER root
 RUN apt install --no-install-recommends -y vim \
     && pip install autopep8 flake8
