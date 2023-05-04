@@ -11,4 +11,4 @@ generate-schema:
 	openalchemy generate ${docs_dir}/openapi.yml schema.py
 
 generate-main-models:
-	fastapi-codegen --input ${docs_dir}/openapi.yaml --output ${app_dir}
+	fastapi-codegen --input ${docs_dir}/openapi.yml --output ${app_dir}
