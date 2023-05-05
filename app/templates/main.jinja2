@@ -1,6 +1,7 @@
 from __future__ import annotations
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 {{imports}}
+from database import get_db
 from handler import *
 
 app = FastAPI(
@@ -30,7 +31,13 @@ app = FastAPI(
     {% if operation.tags %}
     , tags={{operation.tags}}
     {% endif %})
-def {{operation.function_name}}({{operation.snake_case_arguments}}) -> {{operation.return_type}}:
+async def {{operation.function_name}}(
+    {{operation.snake_case_arguments}}
+    {% if operation.snake_case_arguments %}
+    ,
+    {% endif %}
+    db=Depends(get_db)
+    ) -> {{operation.return_type}}:
     {%- if operation.summary %}
     """
     {{ operation.summary }}
@@ -42,5 +49,6 @@ def {{operation.function_name}}({{operation.snake_case_arguments}}) -> {{operati
         {{ arg.split(':')[0] }}={{ arg.split(':')[0] }},
         {% endif %}
         {% endfor %}
+        db=db
     )
 {% endfor %}
