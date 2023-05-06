@@ -16,10 +16,13 @@ services:
       - ./docs:/home/docs:cached # for migrate
       - ./templates:/home/templates:cached # for generate
       - ./docker/my.cnf:/etc/mysql/conf.d/my.cnf:cached
+    ports:
+      - 8000:8000
     env_file:
       - .env.development
     depends_on:
       - db
+    command: uvicorn main:app --reload --host 0.0.0.0
 
   db:
     image: sw_back_db_dev
