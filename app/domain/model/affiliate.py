@@ -20,6 +20,9 @@ class AffiliateDOM(BaseModel):
     updated_at: Optional[datetime]  # server_default
     user: Optional[UserDOM]
 
+    class Config:
+        orm_mode = True
+
     @validator('name', 'postcode', 'address', 'tel')
     def prohibit_empty_str(cls, v: str, field: ModelField) -> str:
         if len(v) == 0:
