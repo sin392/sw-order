@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ...usecase.dto import UsersPostRequest
+from .dto import UsersPostRequest
 from fastapi.responses import Response
 
 

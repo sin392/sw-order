@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ...usecase.dto import AffiliatesPostRequest
+from .dto import AffiliatesPostRequest
 from fastapi.responses import Response
 
 

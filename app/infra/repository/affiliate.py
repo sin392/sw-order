@@ -1,4 +1,4 @@
-from ...domain.repository import IAffiliateRepository
+from domain.repository import IAffiliateRepository
 
 
 class AffiliateRepository(IAffiliateRepository):

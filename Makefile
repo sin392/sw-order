@@ -18,10 +18,10 @@ generate-code:
 	fastapi-codegen \
 		--template-dir ${templates_dir} \
 		--input ${docs_dir}/openapi.yml \
-		--model-file ${app_dir}/usecase/dto.py \
+		--model-file ${app_dir}/interface/handler/dto.py \
 		--output ${app_dir}
 		# --generate-routers
-	sed -i -e 's/from \./from usecase./' ${app_dir}/main.py
+	sed -i -e 's/from \./from interface.handler./' ${app_dir}/main.py
 
 migrate-up:
 	cd ${db_dir} && alembic upgrade head

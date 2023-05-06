@@ -1,7 +1,7 @@
-from ..domain.model import AffiliateDOM
-from ..domain.repository import IAffiliateRepository
-from ..interface.handler.affiliate import IAffiliateUsecase
-from .dto import AffiliatesPostRequest
+from domain.model import AffiliateDOM
+from domain.repository import IAffiliateRepository
+from interface.handler.affiliate import IAffiliateUsecase
+from interface.handler.dto import AffiliatesPostRequest
 
 
 class AffiliateUsecase(IAffiliateUsecase):

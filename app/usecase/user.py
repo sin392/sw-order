@@ -1,7 +1,7 @@
-from ..domain.model import UserDOM
-from ..domain.repository import IUserRepository
-from ..interface.handler.user import IUserUsecase
-from .dto import UsersPostRequest
+from domain.model import UserDOM
+from domain.repository import IUserRepository
+from interface.handler.user import IUserUsecase
+from interface.handler.dto import UsersPostRequest
 
 
 class UserUsecase(IUserUsecase):

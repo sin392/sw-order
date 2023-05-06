@@ -1,4 +1,4 @@
-from ...domain.repository import IUserRepository
+from domain.repository import IUserRepository
 
 
 class UserRepository(IUserRepository):
