@@ -1,4 +1,5 @@
 from typing import List
+from uuid import uuid4
 
 from domain.model import UserDOM
 from domain.repository import IUserRepository, IAffiliateRepository
@@ -17,7 +18,8 @@ class UserUsecase(IUserUsecase):
         return dom_to_dto(User, dom_user)
 
     def save(self, body: CreateUserRequest) -> None:
-        user = UserDOM.parse_obj(body)
+        params = {**body.dict(), "id": uuid4()}
+        user = UserDOM(**params)
         affiliate_id = body.affiliate_id
         if affiliate_id is not None:
             affiliate = self.affiliateRepository.find(affiliate_id)

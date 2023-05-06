@@ -10,14 +10,14 @@ from pydantic.fields import ModelField
 
 
 class _UserID(BaseModel):
-    id: str
+    id: UUID
 
     class Config:
         orm_mode = True
 
 
 class AffiliateDOM(BaseModel):
-    id: Optional[UUID]
+    id: UUID
     name: str
     postcode: str
     address: str

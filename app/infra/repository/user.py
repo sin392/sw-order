@@ -1,4 +1,3 @@
-from uuid import uuid4
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
@@ -18,11 +17,7 @@ class UserRepository(IUserRepository):
         return orm_to_dom(UserDOM, orm_user) if orm_user else None
 
     def save(self, user: UserDOM) -> None:
-        params = {
-            **user.to_rdb_dict(),
-            "id": uuid4()
-        }
-        orm_user = User(**params)
+        orm_user = User(**user.to_rdb_dict())
         try:
             self.db.add(orm_user)
             self.db.flush()

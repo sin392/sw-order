@@ -1,4 +1,3 @@
-from uuid import uuid4
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
@@ -18,8 +17,7 @@ class AffiliateRepository(IAffiliateRepository):
         return orm_to_dom(AffiliateDOM, orm_affiliate) if orm_affiliate else None
 
     def save(self, affiliate: AffiliateDOM) -> None:
-        params = {**affiliate.to_rdb_dict(), "id": uuid4()}
-        orm_affiliate = Affiliate(**params)
+        orm_affiliate = Affiliate(**affiliate.to_rdb_dict())
         try:
             self.db.add(orm_affiliate)
             self.db.flush()

@@ -1,4 +1,5 @@
 from typing import List
+from uuid import uuid4
 
 from domain.model import AffiliateDOM
 from domain.repository import IAffiliateRepository
@@ -16,7 +17,8 @@ class AffiliateUsecase(IAffiliateUsecase):
         return dom_to_dto(Affiliate, dom_affiliate)
 
     def save(self, body: CreateAffiliateRequest) -> None:
-        affiliate = AffiliateDOM.parse_obj(body)
+        params = {**body.dict(), "id": uuid4()}
+        affiliate = AffiliateDOM(**params)
         return self.repo.save(affiliate)
 
     def update(self, affiliate_id: str, body: UpdateAffiliateRequest) -> None:

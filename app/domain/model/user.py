@@ -9,7 +9,7 @@ from .affiliate import AffiliateDOM
 
 
 class UserDOM(BaseModel):
-    id: Optional[UUID]
+    id: UUID
     first_name: str
     last_name: str
     tel: str
