@@ -158,7 +158,7 @@ components:
           example: 000-0000-0000
         email:
           type: string
-          maxLength: 13
+          maxLength: 255
           description: メールアドレス
           example: sample@sample.com
         created_at:
