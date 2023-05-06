@@ -25,7 +25,7 @@ class UserDOM(BaseModel):
             raise ValueError(f'{field}には1文字以上の文字列を指定してください')
         return v
 
-    def update(self, obj: object):
-        for k, v in obj.items():
+    def update(self, obj_dict: dict):
+        for k, v in obj_dict.items():
             if v is not None:
                 setattr(self, k, v)

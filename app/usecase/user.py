@@ -23,8 +23,8 @@ class UserUsecase(IUserUsecase):
         user = self.repo.find(user_id)
         if user is None:
             raise Exception(f'Userが存在しません: {user_id}')
-        updated_user = user.update(body)
-        return self.repo.update(updated_user)
+        user.update(body.dict())
+        return self.repo.update(user)
 
     def delete(self, user_id: str) -> None:
         user = self.repo.find(user_id)

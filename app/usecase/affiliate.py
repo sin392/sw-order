@@ -23,8 +23,8 @@ class AffiliateUsecase(IAffiliateUsecase):
         affiliate = self.repo.find(affiliate_id)
         if affiliate is None:
             raise Exception(f'Affiliateが存在しません: {affiliate_id}')
-        updated_affiliate = affiliate.update(body)
-        return self.repo.update(updated_affiliate)
+        affiliate.update(body.dict())
+        return self.repo.update(affiliate)
 
     def delete(self, affiliate_id: str) -> None:
         affiliate = self.repo.find(affiliate_id)

@@ -36,10 +36,10 @@ class UserHandler:
     def post_users(self, body: CreateUserRequest) -> None:
         return self.usecase.save(body)
 
-    def put_user(self, user_id: str, body: CreateUserRequest) -> None:
+    def put_users_user_id(self, user_id: str, body: CreateUserRequest) -> None:
         return self.usecase.update(user_id, body)
 
-    def delete_user(self, user_id: str) -> None:
+    def delete_users_user_id(self, user_id: str) -> None:
         return self.usecase.delete(user_id)
 
     def get_users(self) -> List[User]:

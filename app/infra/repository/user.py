@@ -32,7 +32,7 @@ class UserRepository(IUserRepository):
     def update(self, user: UserDOM) -> None:
         try:
             orm_user = self.db.query(User).get(user.id)
-            for k, v in user.dict():
+            for k, v in user.dict().items():
                 setattr(orm_user, k, v)
             self.db.flush()
         except Exception as e:

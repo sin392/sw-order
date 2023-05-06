@@ -32,7 +32,7 @@ class AffiliateRepository(IAffiliateRepository):
     def update(self, affiliate: AffiliateDOM) -> None:
         try:
             orm_affiliate = self.db.query(Affiliate).get(affiliate.id)
-            for k, v in affiliate.dict():
+            for k, v in affiliate.dict().items():
                 setattr(orm_affiliate, k, v)
             self.db.flush()
         except Exception as e:

@@ -36,10 +36,10 @@ class AffiliateHandler:
     def post_affiliates(self, body: CreateAffiliateRequest) -> None:
         return self.usecase.save(body)
 
-    def put_affiliate(self, affiliate_id: str, body: CreateAffiliateRequest) -> None:
+    def put_affiliates_affiliate_id(self, affiliate_id: str, body: CreateAffiliateRequest) -> None:
         return self.usecase.update(affiliate_id, body)
 
-    def delete_affiliate(self, affiliate_id: str) -> None:
+    def delete_affiliates_affiliate_id(self, affiliate_id: str) -> None:
         return self.usecase.delete(affiliate_id)
 
     def get_affiliates(self) -> List[Affiliate]:
