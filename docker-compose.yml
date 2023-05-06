@@ -13,6 +13,7 @@ services:
     volumes:
       - ./app:/home/app:cached
       - ./db:/home/db:cached
+      - ./scripts:/home/scripts:cached
       - ./docs:/home/docs:cached # for migrate
       - ./templates:/home/templates:cached # for generate
       - ./docker/my.cnf:/etc/mysql/conf.d/my.cnf:cached
@@ -22,7 +23,7 @@ services:
       - .env.development
     depends_on:
       - db
-    command: uvicorn main:app --reload --host 0.0.0.0
+    command: bash -c "sh /home/scripts/start_server.sh"
 
   db:
     image: sw_back_db_dev

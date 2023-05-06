@@ -15,6 +15,7 @@ Base = models.Base  # type: ignore
 class _UserDictBase(typing.TypedDict, total=True):
     """TypedDict for properties that are required."""
 
+    id: str
     first_name: str
     last_name: str
     tel: str
@@ -25,8 +26,8 @@ class _UserDictBase(typing.TypedDict, total=True):
 class UserDict(_UserDictBase, total=False):
     """TypedDict for properties that are not required."""
 
-    id: typing.Optional[str]
     email: typing.Optional[str]
+    affiliate: typing.Optional["AffiliateDict"]
 
 
 class TUser(typing.Protocol):
@@ -43,6 +44,7 @@ class TUser(typing.Protocol):
         email: メールアドレス
         created_at: 作成日
         updated_at: 更新日
+        affiliate: The affiliate of the User.
 
     """
 
@@ -52,15 +54,16 @@ class TUser(typing.Protocol):
     query: orm.Query
 
     # Model properties
-    id: 'sqlalchemy.Column[typing.Optional[str]]'
+    id: 'sqlalchemy.Column[str]'
     first_name: 'sqlalchemy.Column[str]'
     last_name: 'sqlalchemy.Column[str]'
     tel: 'sqlalchemy.Column[str]'
     email: 'sqlalchemy.Column[typing.Optional[str]]'
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
+    affiliate: 'sqlalchemy.Column[typing.Optional["TAffiliate"]]'
 
-    def __init__(self, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, id: typing.Optional[str] = None, email: typing.Optional[str] = None) -> None:
+    def __init__(self, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["TAffiliate"] = None) -> None:
         """
         Construct.
 
@@ -72,12 +75,13 @@ class TUser(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
+            affiliate: The affiliate of the User.
 
         """
         ...
 
     @classmethod
-    def from_dict(cls, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, id: typing.Optional[str] = None, email: typing.Optional[str] = None) -> "TUser":
+    def from_dict(cls, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["AffiliateDict"] = None) -> "TUser":
         """
         Construct from a dictionary (eg. a POST payload).
 
@@ -89,6 +93,7 @@ class TUser(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
+            affiliate: The affiliate of the User.
 
         Returns:
             Model instance based on the dictionary.
@@ -134,6 +139,7 @@ User: typing.Type[TUser] = models.User  # type: ignore
 class _AffiliateDictBase(typing.TypedDict, total=True):
     """TypedDict for properties that are required."""
 
+    id: str
     name: str
     postcode: str
     address: str
@@ -145,10 +151,8 @@ class _AffiliateDictBase(typing.TypedDict, total=True):
 class AffiliateDict(_AffiliateDictBase, total=False):
     """TypedDict for properties that are not required."""
 
-    id: typing.Optional[str]
     fax: typing.Optional[str]
     email: typing.Optional[str]
-    user: typing.Optional["UserDict"]
 
 
 class TAffiliate(typing.Protocol):
@@ -167,7 +171,7 @@ class TAffiliate(typing.Protocol):
         email: メールアドレス
         created_at: 作成日
         updated_at: 更新日
-        user: The user of the Affiliate.
+        users: The users of the Affiliate.
 
     """
 
@@ -177,7 +181,7 @@ class TAffiliate(typing.Protocol):
     query: orm.Query
 
     # Model properties
-    id: 'sqlalchemy.Column[typing.Optional[str]]'
+    id: 'sqlalchemy.Column[str]'
     name: 'sqlalchemy.Column[str]'
     postcode: 'sqlalchemy.Column[str]'
     address: 'sqlalchemy.Column[str]'
@@ -186,9 +190,9 @@ class TAffiliate(typing.Protocol):
     email: 'sqlalchemy.Column[typing.Optional[str]]'
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
-    user: 'sqlalchemy.Column[typing.Optional["TUser"]]'
+    users: 'sqlalchemy.Column[typing.Sequence["TUser"]]'
 
-    def __init__(self, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, id: typing.Optional[str] = None, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, user: typing.Optional["TUser"] = None) -> None:
+    def __init__(self, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, users: typing.Optional[typing.Sequence["TUser"]] = None) -> None:
         """
         Construct.
 
@@ -202,13 +206,13 @@ class TAffiliate(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
-            user: The user of the Affiliate.
+            users: The users of the Affiliate.
 
         """
         ...
 
     @classmethod
-    def from_dict(cls, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, id: typing.Optional[str] = None, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, user: typing.Optional["UserDict"] = None) -> "TAffiliate":
+    def from_dict(cls, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None) -> "TAffiliate":
         """
         Construct from a dictionary (eg. a POST payload).
 
@@ -222,7 +226,7 @@ class TAffiliate(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
-            user: The user of the Affiliate.
+            users: The users of the Affiliate.
 
         Returns:
             Model instance based on the dictionary.

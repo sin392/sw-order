@@ -208,7 +208,12 @@ components:
           format: date-time
           x-server-default: Now()
           description: 更新日
+        affiliate:
+          allOf:
+            - "$ref": "#/components/schemas/Affiliate"
+            - x-backref: users
       required:
+        - id
         - first_name
         - last_name
         - tel
@@ -265,9 +270,8 @@ components:
           format: date-time
           x-server-default: Now()
           description: 更新日
-        user:
-          $ref: "#/components/schemas/User"
       required:
+        - id
         - name
         - postcode
         - address
@@ -356,6 +360,11 @@ components:
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
+        affiliate_id:
+          type: string
+          maxLength: 36
+          format: uuid
+          description: 加盟組織ID
       required:
         - name
         - postcode
