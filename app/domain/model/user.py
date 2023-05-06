@@ -12,8 +12,8 @@ class UserDOM(BaseModel):
     last_name: str
     tel: str
     email: Optional[str]
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime]  # server_default
+    updated_at: Optional[datetime]  # server_default
 
     @validator('first_name', 'last_name', 'tel')
     def prohibit_empty_str(cls, v: str, field: ModelField) -> str:

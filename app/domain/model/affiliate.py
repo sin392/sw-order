@@ -16,8 +16,8 @@ class AffiliateDOM(BaseModel):
     tel: str
     fax: Optional[str]
     email: Optional[str]
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime]  # server_default
+    updated_at: Optional[datetime]  # server_default
     user: Optional[UserDOM]
 
     @validator('name', 'postcode', 'address', 'tel')

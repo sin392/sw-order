@@ -1,26 +1,26 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 info:
   title: API Title
-  version: '1.0'
+  version: "1.0"
 tags:
   - name: User
   - name: Affiliate
 servers:
-  - url: https://api.server.test/v1
+  - url: http://localhost:8000
 paths:
   /users:
     get:
       tags:
         - User
       responses:
-        '200':
+        "200":
           description: ユーザ一覧の取得
           content:
             application/json:
               schema:
                 type: array
                 items:
-                    $ref: '#/components/schemas/User'
+                  $ref: "#/components/schemas/User"
     post:
       tags:
         - User
@@ -55,7 +55,7 @@ paths:
                 - first_name
                 - last_name
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -67,14 +67,14 @@ paths:
       tags:
         - Affiliate
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 type: array
                 items:
-                    $ref: '#/components/schemas/Affiliate'
+                  $ref: "#/components/schemas/Affiliate"
     post:
       tags:
         - Affiliate
@@ -121,7 +121,7 @@ paths:
                 - address
                 - tel
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -164,10 +164,12 @@ components:
         created_at:
           type: string
           format: date-time
+          x-server-default: Now()
           description: 作成日
         updated_at:
           type: string
           format: date-time
+          x-server-default: Now()
           description: 更新日
       required:
         - first_name
@@ -219,10 +221,12 @@ components:
         created_at:
           type: string
           format: date-time
+          x-server-default: Now()
           description: 作成日
         updated_at:
           type: string
           format: date-time
+          x-server-default: Now()
           description: 更新日
         user:
           $ref: "#/components/schemas/User"

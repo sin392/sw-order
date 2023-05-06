@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: c3922d395691
+Revision ID: e1f2930949cc
 Revises: 
-Create Date: 2023-05-06 06:31:35.373766
+Create Date: 2023-05-06 07:09:24.137054
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c3922d395691'
+revision = 'e1f2930949cc'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,8 +24,8 @@ def upgrade() -> None:
     sa.Column('last_name', sa.String(length=255), nullable=False),
     sa.Column('tel', sa.String(length=13), nullable=False),
     sa.Column('email', sa.String(length=13), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('affiliates',
@@ -36,8 +36,8 @@ def upgrade() -> None:
     sa.Column('tel', sa.String(length=13), nullable=False),
     sa.Column('fax', sa.String(length=13), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.Column('user_id', sa.String(length=36), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
