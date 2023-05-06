@@ -20,7 +20,7 @@ engine = create_engine(DATABASE)
 # scoped_sessionを利用するとインスタンス化時に同一のインスタンスが返される
 SessionLocal = scoped_session(
     sessionmaker(
-        autocommit=True,
+        autocommit=False,
         autoflush=False,
         bind=engine
     )
