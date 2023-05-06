@@ -1,5 +1,5 @@
 from uuid import uuid4
-from typing import List
+from typing import List, Optional
 
 from sqlalchemy.orm import Session
 
@@ -13,12 +13,12 @@ class AffiliateRepository(IAffiliateRepository):
     def __init__(self, db: Session) -> None:
         self.db = db
 
-    def find(self, affiliate_id: str) -> AffiliateDOM:
+    def find(self, affiliate_id: str) -> Optional[AffiliateDOM]:
         orm_affiliate = self.db.query(Affiliate).get(affiliate_id)
-        return orm_to_dom(AffiliateDOM, orm_affiliate)
+        return orm_to_dom(AffiliateDOM, orm_affiliate) if orm_affiliate else None
 
     def save(self, affiliate: AffiliateDOM) -> None:
-        params = {**affiliate.dict(), "id": uuid4()}
+        params = {**affiliate.to_rdb_dict(), "id": uuid4()}
         orm_affiliate = Affiliate(**params)
         try:
             self.db.add(orm_affiliate)

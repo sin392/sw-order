@@ -153,6 +153,7 @@ class AffiliateDict(_AffiliateDictBase, total=False):
 
     fax: typing.Optional[str]
     email: typing.Optional[str]
+    users: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TAffiliate(typing.Protocol):

@@ -1,5 +1,5 @@
 from uuid import uuid4
-from typing import List
+from typing import List, Optional
 
 from sqlalchemy.orm import Session
 
@@ -13,12 +13,15 @@ class UserRepository(IUserRepository):
     def __init__(self, db: Session) -> None:
         self.db = db
 
-    def find(self, user_id: str) -> UserDOM:
+    def find(self, user_id: str) -> Optional[UserDOM]:
         orm_user = self.db.query(User).get(user_id)
-        return orm_to_dom(UserDOM, orm_user)
+        return orm_to_dom(UserDOM, orm_user) if orm_user else None
 
     def save(self, user: UserDOM) -> None:
-        params = {**user.dict(), "id": uuid4()}
+        params = {
+            **user.to_rdb_dict(),
+            "id": uuid4()
+        }
         orm_user = User(**params)
         try:
             self.db.add(orm_user)

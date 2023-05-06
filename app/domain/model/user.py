@@ -5,8 +5,9 @@ from uuid import UUID
 from pydantic import BaseModel, validator
 from pydantic.fields import ModelField
 
+from .affiliate import AffiliateDOM
 
-# エンティティ
+
 class UserDOM(BaseModel):
     id: Optional[UUID]
     first_name: str
@@ -15,6 +16,7 @@ class UserDOM(BaseModel):
     email: Optional[str]
     created_at: Optional[datetime]  # server_default
     updated_at: Optional[datetime]  # server_default
+    affiliate: Optional[AffiliateDOM]
 
     class Config:
         orm_mode = True
@@ -29,3 +31,8 @@ class UserDOM(BaseModel):
         for k, v in obj_dict.items():
             if v is not None:
                 setattr(self, k, v)
+
+    def to_rdb_dict(self) -> dict:
+        params = {**self.dict(), "affiliate_id": self.affiliate.id}
+        params.pop('affiliate')
+        return params

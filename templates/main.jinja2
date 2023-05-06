@@ -22,7 +22,7 @@ userRepository = UserRepository(db)
 affiliateRepository = AffiliateRepository(db)
 # service
 # usecase
-userUsecase = UserUsecase(userRepository)
+userUsecase = UserUsecase(userRepository, affiliateRepository)
 affiliateUsecase = AffiliateUsecase(affiliateRepository)
 # handler
 userHandler = UserHandler(userUsecase)

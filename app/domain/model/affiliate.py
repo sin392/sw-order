@@ -1,14 +1,21 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from pydantic import BaseModel, validator
 from pydantic.fields import ModelField
 
-from .user import UserDOM
+# 以下をコメントインすると循環参照になる
+# from .user import BaseUserDOM
 
 
-# エンティティ
+class _UserID(BaseModel):
+    id: str
+
+    class Config:
+        orm_mode = True
+
+
 class AffiliateDOM(BaseModel):
     id: Optional[UUID]
     name: str
@@ -19,7 +26,7 @@ class AffiliateDOM(BaseModel):
     email: Optional[str]
     created_at: Optional[datetime]  # server_default
     updated_at: Optional[datetime]  # server_default
-    user: Optional[UserDOM]
+    users: Optional[List[_UserID]]
 
     class Config:
         orm_mode = True
@@ -34,3 +41,8 @@ class AffiliateDOM(BaseModel):
         for k, v in obj_dict.items():
             if v is not None:
                 setattr(self, k, v)
+
+    def to_rdb_dict(self) -> dict:
+        params = {**self.dict()}
+        params.pop('users')
+        return params

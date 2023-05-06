@@ -167,6 +167,17 @@ paths:
 
 components:
   schemas:
+    BaseUser:
+      type: object
+      description: 担当者(Base)
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          format: uuid
+          description: ユーザID
+      required:
+        - id
     User:
       type: object
       description: 担当者
@@ -270,6 +281,11 @@ components:
           format: date-time
           x-server-default: Now()
           description: 更新日
+        users:
+          readOnly: True
+          type: array
+          items:
+            $ref: "#/components/schemas/BaseUser"
       required:
         - id
         - name
@@ -301,6 +317,11 @@ components:
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
+        affiliate_id:
+          type: string
+          maxLength: 36
+          format: uuid
+          description: 加盟組織ID
       required:
         - first_name
         - last_name
@@ -360,11 +381,6 @@ components:
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
-        affiliate_id:
-          type: string
-          maxLength: 36
-          format: uuid
-          description: 加盟組織ID
       required:
         - name
         - postcode
