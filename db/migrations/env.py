@@ -5,13 +5,9 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import open_alchemy
+from open_alchemy import models
 # /home/app/infra/database with PYTHONPATH=/home/app
 from infra.database import DATABASE
-
-# ref: https://openapi-sqlalchemy.readthedocs.io/en/latest/index.html#alembic
-# TODO: 相対パスとか環境変数に変更したい
-open_alchemy.init_yaml(spec_filename="/home/docs/openapi.yml")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -28,7 +24,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = open_alchemy.models.Base.metadata
+target_metadata = models.Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
