@@ -11,13 +11,13 @@ generate-revision:
 	cd ${db_dir} && alembic revision --autogenerate -m ${revision}
 
 generate-schema:
-	openalchemy generate ${docs_dir}/openapi.yml ${app_dir}/infra/schema.py
+	openalchemy generate ${docs_dir}/openapi/openapi.yml ${app_dir}/infra/schema.py
 
 generate-code:
 	# NOTE: routersを有効化するとtemplateが機能しなくなる（デフォルトが強制される）
 	fastapi-codegen \
 		--template-dir ${templates_dir} \
-		--input ${docs_dir}/openapi.yml \
+		--input ${docs_dir}/openapi/openapi.yml \
 		--model-file ${app_dir}/interface/handler/dto.py \
 		--output ${app_dir}
 		# --generate-routers

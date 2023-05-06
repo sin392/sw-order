@@ -1,0 +1,62 @@
+type: object
+description: 加盟組織
+properties:
+  id:
+    type: string
+    maxLength: 36
+    format: uuid
+    description: 加盟組織ID
+    x-primary-key: true
+  name:
+    type: string
+    maxLength: 255
+    description: 組織名
+    example: 株式会社サンプル
+  postcode:
+    type: string
+    maxLength: 8
+    description: 郵便番号
+    example: 000-0000
+  address:
+    type: string
+    maxLength: 255
+    description: 住所
+    example: 静岡県沼津市上土町36
+  tel:
+    type: string
+    maxLength: 13
+    description: 電話番号
+    example: 000-0000-0000
+  fax:
+    type: string
+    maxLength: 13
+    description: FAX番号
+    example: 000-0000-0000
+  email:
+    type: string
+    maxLength: 255
+    description: メールアドレス
+    example: sample@sample.com
+  created_at:
+    type: string
+    format: date-time
+    x-server-default: Now()
+    description: 作成日
+  updated_at:
+    type: string
+    format: date-time
+    x-server-default: Now()
+    description: 更新日
+  users:
+    readOnly: True
+    type: array
+    items:
+      $ref: "./base_user.yml"
+required:
+  - id
+  - name
+  - postcode
+  - address
+  - tel
+  - created_at
+  - updated_at

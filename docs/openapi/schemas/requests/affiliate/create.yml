@@ -1,0 +1,37 @@
+type: object
+properties:
+  name:
+    type: string
+    maxLength: 255
+    description: 組織名
+    example: 株式会社サンプル
+  postcode:
+    type: string
+    maxLength: 8
+    description: 郵便番号
+    example: 000-0000
+  address:
+    type: string
+    maxLength: 255
+    description: 住所
+    example: 静岡県沼津市上土町36
+  tel:
+    type: string
+    maxLength: 13
+    description: 電話番号
+    example: 000-0000-0000
+  fax:
+    type: string
+    maxLength: 13
+    description: FAX番号
+    example: 000-0000-0000
+  email:
+    type: string
+    maxLength: 255
+    description: メールアドレス
+    example: sample@sample.com
+required:
+  - name
+  - postcode
+  - address
+  - tel

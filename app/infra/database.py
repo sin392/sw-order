@@ -13,7 +13,7 @@ DATABASE = "mysql://{}:{}@{}/{}?charset=utf8".format(
 
 # ref: https://openapi-sqlalchemy.readthedocs.io/en/latest/index.html#alembic
 # TODO: 相対パスとか環境変数に変更したい
-open_alchemy.init_yaml(spec_filename="/home/docs/openapi.yml")
+open_alchemy.init_yaml(spec_filename="/home/docs/openapi/openapi.yml")
 
 engine = create_engine(DATABASE)
 

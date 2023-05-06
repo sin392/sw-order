@@ -1,0 +1,51 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+tags:
+  - name: User
+  - name: Affiliate
+servers:
+  - url: http://localhost:8000
+paths:
+  /users:
+    $ref: "./paths/users/index.yml"
+  /users/{user_id}:
+    $ref: "./paths/users/{user_id}/index.yml"
+  /affiliates:
+    $ref: "./paths/affiliates/index.yml"
+  /affiliates/{affiliate_id}:
+    $ref: "./paths/affiliates/{affiliate_id}/index.yml"
+  /items:
+    $ref: "./paths/items/index.yml"
+  /items/{item_id}:
+    $ref: "./paths/items/{item_id}/index.yml"
+
+components:
+  schemas:
+    # base models
+    BaseUser:
+      $ref: "./schemas/models/base_user.yml"
+    # actual models (tables)
+    User:
+      x-tablename: users
+      $ref: "./schemas/models/user.yml"
+    Affiliate:
+      x-tablename: affiliates
+      $ref: "./schemas/models/affiliate.yml"
+    Item:
+      x-tablename: items
+      $ref: "./schemas/models/item.yml"
+    # requests
+    CreateUserRequest:
+      $ref: "./schemas/requests/user/create.yml"
+    UpdateUserRequest:
+      $ref: "./schemas/requests/user/update.yml"
+    CreateAffiliateRequest:
+      $ref: "./schemas/requests/affiliate/create.yml"
+    UpdateAffiliateRequest:
+      $ref: "./schemas/requests/affiliate/update.yml"
+    CreateItemRequest:
+      $ref: "./schemas/requests/item/create.yml"
+    UpdateItemRequest:
+      $ref: "./schemas/requests/item/update.yml"

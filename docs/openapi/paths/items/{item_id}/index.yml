@@ -1,0 +1,51 @@
+get:
+  tags:
+    - Item
+  parameters:
+    - in: path
+      name: item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../../schemas/models/item.yml"
+put:
+  tags:
+    - Item
+  parameters:
+    - in: path
+      name: item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "../../../schemas/requests/item/create.yml"
+  responses:
+    "200":
+      description: Success
+delete:
+  tags:
+    - Item
+  parameters:
+    - in: path
+      name: item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success

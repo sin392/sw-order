@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Item
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../../schemas/models/item.yml"
+post:
+  tags:
+    - Item
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "../../schemas/requests/item/create.yml"
+  responses:
+    "200":
+      description: Success

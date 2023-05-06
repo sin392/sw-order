@@ -1,0 +1,10 @@
+type: object
+description: 担当者(Base)
+properties:
+  id:
+    type: string
+    maxLength: 36
+    format: uuid
+    description: ユーザID
+required:
+  - id

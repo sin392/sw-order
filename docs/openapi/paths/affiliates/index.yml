@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Affiliate
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../../schemas/models/affiliate.yml"
+post:
+  tags:
+    - Affiliate
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "../../schemas/requests/affiliate/create.yml"
+  responses:
+    "200":
+      description: Success
