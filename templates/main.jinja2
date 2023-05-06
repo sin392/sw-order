@@ -20,13 +20,16 @@ db = SessionLocal()
 # repository
 userRepository = UserRepository(db)
 affiliateRepository = AffiliateRepository(db)
+itemRepository = ItemRepository(db)
 # service
 # usecase
 userUsecase = UserUsecase(userRepository, affiliateRepository)
 affiliateUsecase = AffiliateUsecase(affiliateRepository)
+itemUsecase = ItemUsecase(itemRepository)
 # handler
 userHandler = UserHandler(userUsecase)
 affiliateHandler = AffiliateHandler(affiliateUsecase)
+itemHandler = ItemHandler(itemUsecase)
 
 {# router分割とカスタムテンプレートが併用できないのでmain.pyに平置き #}
 {% for operation in operations %}

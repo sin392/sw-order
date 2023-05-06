@@ -268,3 +268,142 @@ class TAffiliate(typing.Protocol):
 
 
 Affiliate: typing.Type[TAffiliate] = models.Affiliate  # type: ignore
+
+
+class _ItemDictBase(typing.TypedDict, total=True):
+    """TypedDict for properties that are required."""
+
+    id: str
+    name: str
+    category: int
+    type: int
+    unit_price: int
+    created_at: str
+    updated_at: str
+
+
+class ItemDict(_ItemDictBase, total=False):
+    """TypedDict for properties that are not required."""
+
+    description: typing.Optional[str]
+    img_src: typing.Optional[str]
+    sales_start: typing.Optional[str]
+    sales_end: typing.Optional[str]
+
+
+class TItem(typing.Protocol):
+    """
+    SQLAlchemy model protocol.
+
+    商品
+
+    Attrs:
+        id: 商品ID
+        name: 商品名
+        description: 商品名
+        img_src: The img_src of the Item.
+        category: カテゴリ(0:缶バッジ, -1:その他)
+        type: タイプ(0:通常, 1:限定, -1:その他)
+        unit_price: 単価
+        sales_start: 作成日
+        sales_end: 作成日
+        created_at: 作成日
+        updated_at: 更新日
+
+    """
+
+    # SQLAlchemy properties
+    __table__: sqlalchemy.Table
+    __tablename__: str
+    query: orm.Query
+
+    # Model properties
+    id: 'sqlalchemy.Column[str]'
+    name: 'sqlalchemy.Column[str]'
+    description: 'sqlalchemy.Column[typing.Optional[str]]'
+    img_src: 'sqlalchemy.Column[typing.Optional[str]]'
+    category: 'sqlalchemy.Column[int]'
+    type: 'sqlalchemy.Column[int]'
+    unit_price: 'sqlalchemy.Column[int]'
+    sales_start: 'sqlalchemy.Column[typing.Optional[datetime.datetime]]'
+    sales_end: 'sqlalchemy.Column[typing.Optional[datetime.datetime]]'
+    created_at: 'sqlalchemy.Column[datetime.datetime]'
+    updated_at: 'sqlalchemy.Column[datetime.datetime]'
+
+    def __init__(self, id: str, name: str, category: int, type: int, unit_price: int, created_at: datetime.datetime, updated_at: datetime.datetime, description: typing.Optional[str] = None, img_src: typing.Optional[str] = None, sales_start: typing.Optional[datetime.datetime] = None, sales_end: typing.Optional[datetime.datetime] = None) -> None:
+        """
+        Construct.
+
+        Args:
+            id: 商品ID
+            name: 商品名
+            description: 商品名
+            img_src: The img_src of the Item.
+            category: カテゴリ(0:缶バッジ, -1:その他)
+            type: タイプ(0:通常, 1:限定, -1:その他)
+            unit_price: 単価
+            sales_start: 作成日
+            sales_end: 作成日
+            created_at: 作成日
+            updated_at: 更新日
+
+        """
+        ...
+
+    @classmethod
+    def from_dict(cls, id: str, name: str, category: int, type: int, unit_price: int, created_at: datetime.datetime, updated_at: datetime.datetime, description: typing.Optional[str] = None, img_src: typing.Optional[str] = None, sales_start: typing.Optional[datetime.datetime] = None, sales_end: typing.Optional[datetime.datetime] = None) -> "TItem":
+        """
+        Construct from a dictionary (eg. a POST payload).
+
+        Args:
+            id: 商品ID
+            name: 商品名
+            description: 商品名
+            img_src: The img_src of the Item.
+            category: カテゴリ(0:缶バッジ, -1:その他)
+            type: タイプ(0:通常, 1:限定, -1:その他)
+            unit_price: 単価
+            sales_start: 作成日
+            sales_end: 作成日
+            created_at: 作成日
+            updated_at: 更新日
+
+        Returns:
+            Model instance based on the dictionary.
+
+        """
+        ...
+
+    @classmethod
+    def from_str(cls, value: str) -> "TItem":
+        """
+        Construct from a JSON string (eg. a POST payload).
+
+        Returns:
+            Model instance based on the JSON string.
+
+        """
+        ...
+
+    def to_dict(self) -> ItemDict:
+        """
+        Convert to a dictionary (eg. to send back for a GET request).
+
+        Returns:
+            Dictionary based on the model instance.
+
+        """
+        ...
+
+    def to_str(self) -> str:
+        """
+        Convert to a JSON string (eg. to send back for a GET request).
+
+        Returns:
+            JSON string based on the model instance.
+
+        """
+        ...
+
+
+Item: typing.Type[TItem] = models.Item  # type: ignore

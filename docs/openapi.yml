@@ -164,6 +164,84 @@ paths:
       responses:
         "200":
           description: Success
+  /items:
+    get:
+      tags:
+        - Item
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Item"
+    post:
+      tags:
+        - Item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateItemRequest"
+      responses:
+        "200":
+          description: Success
+  /items/{item_id}:
+    get:
+      tags:
+        - Item
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Item"
+    put:
+      tags:
+        - Item
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        "200":
+          description: Success
+    delete:
+      tags:
+        - Item
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
 
 components:
   schemas:
@@ -294,6 +372,69 @@ components:
         - tel
         - created_at
         - updated_at
+    Item:
+      type: object
+      description: 商品
+      x-tablename: items
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          format: uuid
+          description: 商品ID
+          x-primary-key: true
+        name:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店缶バッジ
+        description:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店の缶バッジです！！
+        img_src:
+          type: string
+          maxLength: 255
+          example: http://localhost:8000/static/no-image.png
+        category:
+          type: integer
+          description: カテゴリ(0:缶バッジ, -1:その他)
+          example: 0
+        type:
+          type: integer
+          description: タイプ(0:通常, 1:限定, -1:その他)
+          example: 0
+        unit_price:
+          type: integer
+          description: 単価
+          example: 300
+        sales_start:
+          type: string
+          format: date-time
+          description: 作成日
+        sales_end:
+          type: string
+          format: date-time
+          description: 作成日
+        created_at:
+          type: string
+          format: date-time
+          x-server-default: Now()
+          description: 作成日
+        updated_at:
+          type: string
+          format: date-time
+          x-server-default: Now()
+          description: 更新日
+      required:
+        - id
+        - name
+        - category
+        - type
+        - unit_price
+        - created_at
+        - updated_at
     CreateUserRequest:
       type: object
       properties:
@@ -419,3 +560,78 @@ components:
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
+    CreateItemRequest:
+      type: object
+      description: 商品
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店缶バッジ
+        description:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店の缶バッジです！！
+        img_src:
+          type: string
+          maxLength: 255
+          example: http://localhost:8000/static/no-image.png
+        category:
+          type: integer
+          description: カテゴリ(0:缶バッジ, -1:その他)
+          example: 0
+        type:
+          type: integer
+          description: タイプ(0:通常, 1:限定, -1:その他)
+          example: 0
+        unit_price:
+          type: integer
+          description: 単価
+          example: 300
+        sales_start:
+          type: string
+          format: date-time
+          description: 作成日
+        sales_end:
+          type: string
+          format: date-time
+          description: 作成日
+      required:
+        - name
+        - unit_price
+    UpdateItemRequest:
+      type: object
+      description: 商品
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店缶バッジ
+        description:
+          type: string
+          maxLength: 255
+          description: 商品名
+          example: ○○商店の缶バッジです！！
+        img_src:
+          type: string
+          maxLength: 255
+          example: http://localhost:8000/static/no-image.png
+        category:
+          type: integer
+          description: カテゴリ(0:缶バッジ, -1:その他)
+          example: 0
+        unit_price:
+          type: integer
+          description: 単価
+          example: 300
+        sales_start:
+          type: string
+          format: date-time
+          description: 作成日
+        sales_end:
+          type: string
+          format: date-time
+          description: 作成日
