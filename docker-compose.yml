@@ -14,6 +14,7 @@ services:
       - ./app:/home/app:cached
       - ./db:/home/db:cached
       - ./docs:/home/docs:cached # for migrate
+      - ./templates:/home/templates:cached # for generate
       - ./docker/my.cnf:/etc/mysql/conf.d/my.cnf:cached
     env_file:
       - .env.development

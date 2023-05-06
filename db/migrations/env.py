@@ -1,4 +1,3 @@
-import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -7,7 +6,8 @@ from sqlalchemy import pool
 from alembic import context
 
 import open_alchemy
-from database import DATABASE  # /home/app/database with PYTHONPATH=/home/app
+# /home/app/infra/database with PYTHONPATH=/home/app
+from infra.database import DATABASE
 
 # ref: https://openapi-sqlalchemy.readthedocs.io/en/latest/index.html#alembic
 # TODO: 相対パスとか環境変数に変更したい

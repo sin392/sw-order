@@ -40,7 +40,7 @@ class TUser(typing.Protocol):
         first_name: 名
         last_name: 姓
         tel: 電話番号
-        email: 電話番号
+        email: メールアドレス
         created_at: 作成日
         updated_at: 更新日
 
@@ -69,7 +69,7 @@ class TUser(typing.Protocol):
             first_name: 名
             last_name: 姓
             tel: 電話番号
-            email: 電話番号
+            email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
 
@@ -86,7 +86,7 @@ class TUser(typing.Protocol):
             first_name: 名
             last_name: 姓
             tel: 電話番号
-            email: 電話番号
+            email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
 
@@ -164,7 +164,7 @@ class TAffiliate(typing.Protocol):
         address: 住所
         tel: 電話番号
         fax: FAX番号
-        email: 電話番号
+        email: メールアドレス
         created_at: 作成日
         updated_at: 更新日
         user: The user of the Affiliate.
@@ -199,7 +199,7 @@ class TAffiliate(typing.Protocol):
             address: 住所
             tel: 電話番号
             fax: FAX番号
-            email: 電話番号
+            email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
             user: The user of the Affiliate.
@@ -219,7 +219,7 @@ class TAffiliate(typing.Protocol):
             address: 住所
             tel: 電話番号
             fax: FAX番号
-            email: 電話番号
+            email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
             user: The user of the Affiliate.

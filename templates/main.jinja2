@@ -1,18 +1,32 @@
 from __future__ import annotations
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 {{imports}}
-from database import get_db
-from handler import *
+from infra.database import SessionLocal
+from infra.repository import *
+from usecase import *
+from interface.handler import *
 
 app = FastAPI(
     {% if info %}
     {% for key,value in info.items() %}
-    {% set info_value= value.__repr__() %}
-    {{ key }} = {{info_value}},
+        {% set info_value= value.__repr__() %}
+        {{ key }} = {{info_value}},
     {% endfor %}
     {% endif %}
-    )
+)
 
+db = SessionLocal()
+{# handlerが増えた場合、以下は手動で追記すること #}
+# repository
+userRepository = UserRepository(db)
+affiliateRepository = AffiliateRepository(db)
+# service
+# usecase
+userUsecase = UserUsecase(userRepository)
+affiliateUsecase = AffiliateUsecase(affiliateRepository)
+# handler
+userHandler = UserHandler(userUsecase)
+affiliateHandler = AffiliateHandler(affiliateUsecase)
 
 {# router分割とカスタムテンプレートが併用できないのでmain.pyに平置き #}
 {% for operation in operations %}
@@ -30,25 +44,21 @@ app = FastAPI(
     {% endif %}
     {% if operation.tags %}
     , tags={{operation.tags}}
-    {% endif %})
+    {% endif %}
+)
 async def {{operation.function_name}}(
     {{operation.snake_case_arguments}}
-    {% if operation.snake_case_arguments %}
-    ,
-    {% endif %}
-    db=Depends(get_db)
     ) -> {{operation.return_type}}:
     {%- if operation.summary %}
     """
     {{ operation.summary }}
     """
     {%- endif %}
-    return do_{{operation.function_name}}(
+    return {{ operation.tags[0] | lower }}Handler.{{operation.function_name}}(
         {% for arg in operation.snake_case_arguments.split(',') %}
-        {% if ':' in arg %}
-        {{ arg.split(':')[0] }}={{ arg.split(':')[0] }},
-        {% endif %}
+            {% if ':' in arg %}
+            {{ arg.split(':')[0] }}={{ arg.split(':')[0] }},
+            {% endif %}
         {% endfor %}
-        db=db
     )
 {% endfor %}
