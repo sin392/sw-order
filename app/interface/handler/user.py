@@ -1,27 +1,47 @@
+from fastapi.responses import Response
+from typing import List
 from abc import ABC, abstractmethod
 
-from .dto import UsersPostRequest
-from fastapi.responses import Response
+from .dto import CreateUserRequest, UpdateUserRequest, User
 
 
 class IUserUsecase(ABC):
     @abstractmethod
-    def list(self):
-        NotImplementedError()
+    def find(self, user_id: str) -> User:
+        raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: UsersPostRequest):
-        NotImplementedError()
+    def save(self, body: CreateUserRequest) -> None:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def update(self, user_id: str, body: UpdateUserRequest) -> None:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def delete(self, user) -> None:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def list(self) -> List[User]:
+        raise NotImplementedError()
 
 
 class UserHandler:
     def __init__(self, usecase: IUserUsecase) -> None:
         self.usecase = usecase
 
-    def get_users(self):
-        res = self.usecase.list()
-        return Response()
+    def get_users_user_id(self, user_id: str) -> User:
+        return self.usecase.find(user_id)
 
-    def post_users(self, body: UsersPostRequest):
-        res = self.usecase.save(body)
-        return Response()
+    def post_users(self, body: CreateUserRequest) -> None:
+        return self.usecase.save(body)
+
+    def put_user(self, user_id: str, body: CreateUserRequest) -> None:
+        return self.usecase.update(user_id, body)
+
+    def delete_user(self, user_id: str) -> None:
+        return self.usecase.delete(user_id)
+
+    def get_users(self) -> List[User]:
+        return self.usecase.list()

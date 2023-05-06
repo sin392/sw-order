@@ -6,6 +6,7 @@ from pydantic import BaseModel, validator
 from pydantic.fields import ModelField
 
 
+# エンティティ
 class UserDOM(BaseModel):
     id: Optional[UUID]
     first_name: str
@@ -23,3 +24,8 @@ class UserDOM(BaseModel):
         if len(v) == 0:
             raise ValueError(f'{field}には1文字以上の文字列を指定してください')
         return v
+
+    def update(self, obj: object):
+        for k, v in obj.items():
+            if v is not None:
+                setattr(self, k, v)

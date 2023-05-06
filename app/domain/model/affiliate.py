@@ -8,6 +8,7 @@ from pydantic.fields import ModelField
 from .user import UserDOM
 
 
+# エンティティ
 class AffiliateDOM(BaseModel):
     id: Optional[UUID]
     name: str
@@ -28,3 +29,8 @@ class AffiliateDOM(BaseModel):
         if len(v) == 0:
             raise ValueError(f'{field}には1文字以上の文字列を指定してください')
         return v
+
+    def update(self, obj: object):
+        for k, v in obj.items():
+            if v is not None:
+                setattr(self, k, v)
