@@ -2,7 +2,6 @@ from typing import List
 from abc import ABC, abstractmethod
 
 from .dto import CreateAffiliateRequest, UpdateAffiliateRequest, Affiliate
-from fastapi.responses import Response
 
 
 class IAffiliateUsecase(ABC):
