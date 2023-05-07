@@ -20,7 +20,7 @@ paths:
     $ref: "./paths/items/index.yml"
   /items/{item_id}:
     $ref: "./paths/items/{item_id}/index.yml"
-
+# fastapi-codegenを使う場合components句必須かつ、スキーマは#/~~/Userみたいに参照されなければいけない？
 components:
   schemas:
     # base models

@@ -1,5 +1,6 @@
 type: object
 description: 担当者
+x-tablename: users
 properties:
   id:
     type: string

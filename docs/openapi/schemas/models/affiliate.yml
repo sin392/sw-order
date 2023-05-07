@@ -1,5 +1,6 @@
 type: object
 description: 加盟組織
+x-tablename: affiliates
 properties:
   id:
     type: string

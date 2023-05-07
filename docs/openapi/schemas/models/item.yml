@@ -1,5 +1,6 @@
 type: object
 description: 商品
+x-tablename: items
 properties:
   id:
     type: string
