@@ -5,6 +5,7 @@ info:
 tags:
   - name: User
   - name: Affiliate
+  - name: Item
 servers:
   - url: http://localhost:8000
 paths:
