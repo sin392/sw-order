@@ -331,6 +331,7 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: ユーザID
@@ -343,27 +344,32 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: ユーザID
           x-primary-key: true
         first_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 名
           example: 太郎
         last_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 姓
           example: 山田
         tel:
           type: string
+          minLength: 13
           maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
@@ -400,37 +406,44 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 加盟組織ID
           x-primary-key: true
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 組織名
           example: 株式会社サンプル
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 住所
           example: 静岡県沼津市上土町36
         tel:
           type: string
+          minLength: 13
           maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         fax:
           type: string
+          minLength: 13
           maxLength: 13
           description: FAX番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
@@ -469,35 +482,42 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 商品ID
           x-primary-key: true
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 商品名
           example: ○○商店缶バッジ
         description:
           type: string
+          minLength: 0
           maxLength: 255
-          description: 商品名
+          description: 商品説明
           example: ○○商店の缶バッジです！！
         img_src:
           type: string
+          minLength: 1
           maxLength: 255
           example: http://localhost:8000/static/no-image.png
         category:
           type: integer
           description: カテゴリ(0:缶バッジ, -1:その他)
+          minimum: -1
           example: 0
         type:
           type: integer
           description: タイプ(0:通常, 1:限定, -1:その他)
+          minimum: -1
           example: 0
         unit_price:
           type: integer
           description: 単価
+          minimum: 0
           example: 300
         sales_start:
           type: string
@@ -531,6 +551,7 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 注文ID
@@ -543,17 +564,20 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 注文ID
           x-primary-key: true
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 届け先郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 届け先住所
           example: 静岡県沼津市上土町36
@@ -590,26 +614,31 @@ components:
       properties:
         first_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 名
           example: 太郎
         last_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 姓
           example: 山田
         tel:
           type: string
-          maxLength: 255
+          minLength: 13
+          maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
         affiliate_id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 加盟組織ID
@@ -621,21 +650,25 @@ components:
       properties:
         first_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 名
           example: 太郎
         last_name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 姓
           example: 山田
         tel:
           type: string
-          maxLength: 255
+          minLength: 13
+          maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
@@ -644,31 +677,37 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 組織名
           example: 株式会社サンプル
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 住所
           example: 静岡県沼津市上土町36
         tel:
           type: string
+          minLength: 13
           maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         fax:
           type: string
+          minLength: 13
           maxLength: 13
           description: FAX番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
@@ -682,31 +721,37 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 組織名
           example: 株式会社サンプル
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 住所
           example: 静岡県沼津市上土町36
         tel:
           type: string
+          minLength: 13
           maxLength: 13
           description: 電話番号
           example: 000-0000-0000
         fax:
           type: string
+          minLength: 13
           maxLength: 13
           description: FAX番号
           example: 000-0000-0000
         email:
           type: string
+          minLength: 3
           maxLength: 255
           description: メールアドレス
           example: sample@sample.com
@@ -716,29 +761,35 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 商品名
           example: ○○商店缶バッジ
         description:
           type: string
+          minLength: 0
           maxLength: 255
-          description: 商品名
+          description: 商品説明
           example: ○○商店の缶バッジです！！
         img_src:
           type: string
+          minLength: 1
           maxLength: 255
           example: http://localhost:8000/static/no-image.png
         category:
           type: integer
           description: カテゴリ(0:缶バッジ, -1:その他)
+          minimum: -1
           example: 0
         type:
           type: integer
           description: タイプ(0:通常, 1:限定, -1:その他)
+          minimum: -1
           example: 0
         unit_price:
           type: integer
           description: 単価
+          minimum: 0
           example: 300
         sales_start:
           type: string
@@ -757,25 +808,30 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 255
           description: 商品名
           example: ○○商店缶バッジ
         description:
           type: string
+          minLength: 0
           maxLength: 255
-          description: 商品名
+          description: 商品説明
           example: ○○商店の缶バッジです！！
         img_src:
           type: string
+          minLength: 1
           maxLength: 255
           example: http://localhost:8000/static/no-image.png
         category:
           type: integer
           description: カテゴリ(0:缶バッジ, -1:その他)
+          minimum: -1
           example: 0
         unit_price:
           type: integer
           description: 単価
+          minimum: 0
           example: 300
         sales_start:
           type: string
@@ -791,11 +847,13 @@ components:
       properties:
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 届け先郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 届け先住所
           example: 静岡県沼津市上土町36
@@ -814,11 +872,13 @@ components:
         #   description: 承認日時
         affiliate_id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 加盟組織ID
         user_id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: ユーザID
@@ -833,11 +893,13 @@ components:
       properties:
         postcode:
           type: string
+          minLength: 8
           maxLength: 8
           description: 届け先郵便番号
           example: 000-0000
         address:
           type: string
+          minLength: 1
           maxLength: 255
           description: 届け先住所
           example: 静岡県沼津市上土町36

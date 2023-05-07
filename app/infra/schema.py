@@ -310,7 +310,7 @@ class TItem(typing.Protocol):
     Attrs:
         id: 商品ID
         name: 商品名
-        description: 商品名
+        description: 商品説明
         img_src: The img_src of the Item.
         category: カテゴリ(0:缶バッジ, -1:その他)
         type: タイプ(0:通常, 1:限定, -1:その他)
@@ -347,7 +347,7 @@ class TItem(typing.Protocol):
         Args:
             id: 商品ID
             name: 商品名
-            description: 商品名
+            description: 商品説明
             img_src: The img_src of the Item.
             category: カテゴリ(0:缶バッジ, -1:その他)
             type: タイプ(0:通常, 1:限定, -1:その他)
@@ -368,7 +368,7 @@ class TItem(typing.Protocol):
         Args:
             id: 商品ID
             name: 商品名
-            description: 商品名
+            description: 商品説明
             img_src: The img_src of the Item.
             category: カテゴリ(0:缶バッジ, -1:その他)
             type: タイプ(0:通常, 1:限定, -1:その他)
