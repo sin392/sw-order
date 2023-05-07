@@ -30,7 +30,7 @@ class OrderRepository(IOrderRepository):
     def update(self, order: OrderDOM) -> None:
         try:
             orm_order = self.db.query(Order).get(order.id)
-            for k, v in order.dict().orders():
+            for k, v in order.dict().items():
                 setattr(orm_order, k, v)
             self.db.flush()
         except Exception as e:

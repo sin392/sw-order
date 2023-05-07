@@ -419,15 +419,23 @@ class TItem(typing.Protocol):
 Item: typing.Type[TItem] = models.Item  # type: ignore
 
 
-class OrderDict(typing.TypedDict, total=True):
+class _OrderDictBase(typing.TypedDict, total=True):
     """TypedDict for properties that are required."""
 
     id: str
     postcode: str
     address: str
     approved_flag: bool
+    created_at: str
+    updated_at: str
     affiliate: "AffiliateDict"
     user: "UserDict"
+
+
+class OrderDict(_OrderDictBase, total=False):
+    """TypedDict for properties that are not required."""
+
+    items: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TOrder(typing.Protocol):
@@ -441,8 +449,11 @@ class TOrder(typing.Protocol):
         postcode: 届け先郵便番号
         address: 届け先住所
         approved_flag: 承認フラグ
+        created_at: 作成日
+        updated_at: 更新日
         affiliate: The affiliate of the Order.
         user: The user of the Order.
+        items: The items of the Order.
 
     """
 
@@ -456,10 +467,13 @@ class TOrder(typing.Protocol):
     postcode: 'sqlalchemy.Column[str]'
     address: 'sqlalchemy.Column[str]'
     approved_flag: 'sqlalchemy.Column[bool]'
+    created_at: 'sqlalchemy.Column[datetime.datetime]'
+    updated_at: 'sqlalchemy.Column[datetime.datetime]'
     affiliate: 'sqlalchemy.Column["TAffiliate"]'
     user: 'sqlalchemy.Column["TUser"]'
+    items: 'sqlalchemy.Column[typing.Sequence["TOrderItem"]]'
 
-    def __init__(self, id: str, postcode: str, address: str, approved_flag: bool, affiliate: "TAffiliate", user: "TUser") -> None:
+    def __init__(self, id: str, postcode: str, address: str, approved_flag: bool, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate: "TAffiliate", user: "TUser", items: typing.Optional[typing.Sequence["TOrderItem"]] = None) -> None:
         """
         Construct.
 
@@ -468,14 +482,17 @@ class TOrder(typing.Protocol):
             postcode: 届け先郵便番号
             address: 届け先住所
             approved_flag: 承認フラグ
+            created_at: 作成日
+            updated_at: 更新日
             affiliate: The affiliate of the Order.
             user: The user of the Order.
+            items: The items of the Order.
 
         """
         ...
 
     @classmethod
-    def from_dict(cls, id: str, postcode: str, address: str, approved_flag: bool, affiliate: "AffiliateDict", user: "UserDict") -> "TOrder":
+    def from_dict(cls, id: str, postcode: str, address: str, approved_flag: bool, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate: "AffiliateDict", user: "UserDict") -> "TOrder":
         """
         Construct from a dictionary (eg. a POST payload).
 
@@ -484,8 +501,11 @@ class TOrder(typing.Protocol):
             postcode: 届け先郵便番号
             address: 届け先住所
             approved_flag: 承認フラグ
+            created_at: 作成日
+            updated_at: 更新日
             affiliate: The affiliate of the Order.
             user: The user of the Order.
+            items: The items of the Order.
 
         Returns:
             Model instance based on the dictionary.
@@ -526,3 +546,112 @@ class TOrder(typing.Protocol):
 
 
 Order: typing.Type[TOrder] = models.Order  # type: ignore
+
+
+class OrderItemDict(typing.TypedDict, total=True):
+    """TypedDict for properties that are required."""
+
+    id: str
+    quantity: int
+    created_at: str
+    updated_at: str
+    order: "OrderDict"
+    item: "ItemDict"
+
+
+class TOrderItem(typing.Protocol):
+    """
+    SQLAlchemy model protocol.
+
+    注文明細
+
+    Attrs:
+        id: 注文明細ID
+        quantity: 個数
+        created_at: 作成日
+        updated_at: 更新日
+        order: The order of the OrderItem.
+        item: The item of the OrderItem.
+
+    """
+
+    # SQLAlchemy properties
+    __table__: sqlalchemy.Table
+    __tablename__: str
+    query: orm.Query
+
+    # Model properties
+    id: 'sqlalchemy.Column[str]'
+    quantity: 'sqlalchemy.Column[int]'
+    created_at: 'sqlalchemy.Column[datetime.datetime]'
+    updated_at: 'sqlalchemy.Column[datetime.datetime]'
+    order: 'sqlalchemy.Column["TOrder"]'
+    item: 'sqlalchemy.Column["TItem"]'
+
+    def __init__(self, id: str, quantity: int, created_at: datetime.datetime, updated_at: datetime.datetime, order: "TOrder", item: "TItem") -> None:
+        """
+        Construct.
+
+        Args:
+            id: 注文明細ID
+            quantity: 個数
+            created_at: 作成日
+            updated_at: 更新日
+            order: The order of the OrderItem.
+            item: The item of the OrderItem.
+
+        """
+        ...
+
+    @classmethod
+    def from_dict(cls, id: str, quantity: int, created_at: datetime.datetime, updated_at: datetime.datetime, order: "OrderDict", item: "ItemDict") -> "TOrderItem":
+        """
+        Construct from a dictionary (eg. a POST payload).
+
+        Args:
+            id: 注文明細ID
+            quantity: 個数
+            created_at: 作成日
+            updated_at: 更新日
+            order: The order of the OrderItem.
+            item: The item of the OrderItem.
+
+        Returns:
+            Model instance based on the dictionary.
+
+        """
+        ...
+
+    @classmethod
+    def from_str(cls, value: str) -> "TOrderItem":
+        """
+        Construct from a JSON string (eg. a POST payload).
+
+        Returns:
+            Model instance based on the JSON string.
+
+        """
+        ...
+
+    def to_dict(self) -> OrderItemDict:
+        """
+        Convert to a dictionary (eg. to send back for a GET request).
+
+        Returns:
+            Dictionary based on the model instance.
+
+        """
+        ...
+
+    def to_str(self) -> str:
+        """
+        Convert to a JSON string (eg. to send back for a GET request).
+
+        Returns:
+            JSON string based on the model instance.
+
+        """
+        ...
+
+
+OrderItem: typing.Type[TOrderItem] = models.OrderItem  # type: ignore

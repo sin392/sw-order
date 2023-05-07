@@ -2,18 +2,21 @@ from typing import List
 from uuid import uuid4
 
 from domain.model import OrderDOM
-from domain.repository import IOrderRepository, IAffiliateRepository, IUserRepository
+from domain.repository import IOrderRepository, IOrderItemRepository, IAffiliateRepository, IUserRepository
 from interface.handler.order import IOrderUsecase
 from interface.handler.dto import CreateOrderRequest, UpdateOrderRequest, Order
 from .util import dom_to_dto, dom_list_to_dto_list
 
 
 class OrderUsecase(IOrderUsecase):
-    def __init__(self, orderRepo: IOrderRepository, affiliateRepo: IAffiliateRepository,
-                 userRepo: IUserRepository) -> None:
+    def __init__(self, orderRepo: IOrderRepository,
+                 orderItemRepo: IOrderItemRepository,
+                 userRepo: IUserRepository,
+                 affiliateRepo: IAffiliateRepository) -> None:
         self.orderRepo = orderRepo
-        self.affiliateRepo = affiliateRepo
+        self.orderItemRepo = orderItemRepo
         self.userRepo = userRepo
+        self.affiliateRepo = affiliateRepo
 
     def find(self, order_id: str) -> Order:
         dom_order = self.orderRepo.find(order_id)
@@ -31,7 +34,13 @@ class OrderUsecase(IOrderUsecase):
             user = self.userRepo.find(user_id)
             if user is None:
                 raise Exception(f'Userが存在しません: {user_id}')
+        # TODO: orderItemの追加処理, saveでid返すようにしないと?
+        # order_items = []
+        # for order_item_id in body.order_ids:
+        #     order_item_id = self.OrderItemRepo.save(orderItem)
+        #     order_items.append({"id": order_item_id})
         order = OrderDOM(**params)
+        # order.items = order_items
         return self.orderRepo.save(order)
 
     def update(self, order_id: str, body: UpdateOrderRequest) -> None:

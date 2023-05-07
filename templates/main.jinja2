@@ -21,15 +21,33 @@ db = SessionLocal()
 userRepository = UserRepository(db)
 affiliateRepository = AffiliateRepository(db)
 itemRepository = ItemRepository(db)
+orderRepository = OrderRepository(db)
+orderItemRepository = OrderItemRepository(db)
 # service
 # usecase
-userUsecase = UserUsecase(userRepository, affiliateRepository)
+userUsecase = UserUsecase(
+    userRepo=userRepository, 
+    affiliateRepo=affiliateRepository
+)
 affiliateUsecase = AffiliateUsecase(affiliateRepository)
 itemUsecase = ItemUsecase(itemRepository)
+orderUsecase = OrderUsecase(
+    orderRepo=orderRepository,
+    orderItemRepo=orderItemRepository,
+    userRepo=userRepository,
+    affiliateRepo=affiliateRepository
+)
+orderItemUsecase = OrderItemUsecase(
+    orderItemRepo=orderItemRepository,
+    orderRepo=orderRepository,
+    itemRepo=itemRepository,
+)
 # handler
 userHandler = UserHandler(userUsecase)
 affiliateHandler = AffiliateHandler(affiliateUsecase)
 itemHandler = ItemHandler(itemUsecase)
+orderHandler = OrderHandler(orderUsecase)
+orderItemHandler = OrderItemHandler(orderItemUsecase)
 
 {# router分割とカスタムテンプレートが併用できないのでmain.pyに平置き #}
 {% for operation in operations %}
@@ -57,7 +75,7 @@ async def {{operation.function_name}}(
     {{ operation.summary }}
     """
     {%- endif %}
-    return {{ operation.tags[0] | lower }}Handler.{{operation.function_name}}(
+    return {{ (operation.tags[0][0] | lower) + operation.tags[0][1:] }}Handler.{{operation.function_name}}(
         {% for arg in operation.snake_case_arguments.split(',') %}
             {% if ':' in arg %}
             {{ arg.split(':')[0] }}={{ arg.split(':')[0] }},

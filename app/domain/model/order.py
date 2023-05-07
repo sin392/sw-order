@@ -1,7 +1,7 @@
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from pydantic import BaseModel, validator
@@ -9,6 +9,13 @@ from pydantic.fields import ModelField
 
 from .affiliate import AffiliateDOM
 from .user import UserDOM
+
+
+class _ID(BaseModel):
+    id: UUID
+
+    class Config:
+        orm_mode = True
 
 
 class OrderDOM(BaseModel):
@@ -20,6 +27,7 @@ class OrderDOM(BaseModel):
     updated_at: Optional[datetime]  # server_default
     affiliate: AffiliateDOM
     user: UserDOM
+    items: List[_ID]
 
     class Config:
         orm_mode = True
@@ -43,4 +51,5 @@ class OrderDOM(BaseModel):
         }
         params.pop('affiliate', None)
         params.pop('user', None)
+        params.pop('items', None)
         return params

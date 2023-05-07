@@ -5,9 +5,6 @@ from uuid import UUID
 from pydantic import BaseModel, validator
 from pydantic.fields import ModelField
 
-# 以下をコメントインすると循環参照になる
-# from .user import BaseUserDOM
-
 
 class _ID(BaseModel):
     id: UUID
