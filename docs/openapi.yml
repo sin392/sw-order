@@ -226,7 +226,7 @@ paths:
           application/json:
             schema:
               type: object
-              $ref: "#/components/schemas/UpdateUserRequest"
+              $ref: "#/components/schemas/UpdateItemRequest"
       responses:
         "200":
           description: Success
