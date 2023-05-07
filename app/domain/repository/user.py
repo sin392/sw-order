@@ -10,15 +10,15 @@ class IUserRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, user) -> None:
+    def save(self, user: UserDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def update(self, user) -> None:
+    def update(self, user: UserDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, user) -> None:
+    def delete(self, user: UserDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod

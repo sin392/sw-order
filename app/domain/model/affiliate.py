@@ -25,6 +25,7 @@ class AffiliateDOM(BaseModel):
     updated_at: Optional[datetime]  # server_default
     users: Optional[List[_ID]]
     orders: Optional[List[_ID]]
+    purchase_rights: Optional[List[_ID]]  # item ids
 
     class Config:
         orm_mode = True
@@ -44,4 +45,5 @@ class AffiliateDOM(BaseModel):
         params = {**self.dict()}
         params.pop('users', None)
         params.pop('orders', None)
+        params.pop('purchase_rights', None)
         return params

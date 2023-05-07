@@ -23,6 +23,7 @@ affiliateRepository = AffiliateRepository(db)
 itemRepository = ItemRepository(db)
 orderRepository = OrderRepository(db)
 orderItemRepository = OrderItemRepository(db)
+purchaseRightRepository = PurchaseRightRepository(db)
 # service
 # usecase
 userUsecase = UserUsecase(
@@ -42,12 +43,18 @@ orderItemUsecase = OrderItemUsecase(
     orderRepo=orderRepository,
     itemRepo=itemRepository,
 )
+purchaseRightUsecase = PurchaseRightUsecase(
+    purchaseRightRepo=purchaseRightRepository,
+    affiliateRepo=affiliateRepository,
+    itemRepo=itemRepository,
+)
 # handler
 userHandler = UserHandler(userUsecase)
 affiliateHandler = AffiliateHandler(affiliateUsecase)
 itemHandler = ItemHandler(itemUsecase)
 orderHandler = OrderHandler(orderUsecase)
 orderItemHandler = OrderItemHandler(orderItemUsecase)
+purchaseRightHandler = PurchaseRightHandler(purchaseRightUsecase)
 
 {# router分割とカスタムテンプレートが併用できないのでmain.pyに平置き #}
 {% for operation in operations %}

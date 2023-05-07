@@ -18,7 +18,7 @@ class IUserUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, user) -> None:
+    def delete(self, user_id: str) -> None:
         raise NotImplementedError()
 
     @abstractmethod

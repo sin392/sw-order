@@ -18,7 +18,7 @@ class IItemUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, item) -> None:
+    def delete(self, item_id: str) -> None:
         raise NotImplementedError()
 
     @abstractmethod

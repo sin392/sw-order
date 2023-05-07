@@ -18,7 +18,7 @@ class IAffiliateUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, affiliate) -> None:
+    def delete(self, affiliate_id: str) -> None:
         raise NotImplementedError()
 
     @abstractmethod

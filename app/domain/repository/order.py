@@ -6,19 +6,19 @@ from domain.model.order import OrderDOM
 
 class IOrderRepository(ABC):
     @abstractmethod
-    def find(self, user_id: str) -> OrderDOM:
+    def find(self, order_id: str) -> OrderDOM:
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, order) -> None:
+    def save(self, order: OrderDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def update(self, order) -> None:
+    def update(self, order: OrderDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, order) -> None:
+    def delete(self, order: OrderDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod

@@ -6,19 +6,19 @@ from domain.model.affiliate import AffiliateDOM
 
 class IAffiliateRepository(ABC):
     @abstractmethod
-    def find(self, user_id: str) -> AffiliateDOM:
+    def find(self, affiliate_id: str) -> AffiliateDOM:
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, user) -> None:
+    def save(self, affiliate: AffiliateDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def update(self, user) -> None:
+    def update(self, affiliate: AffiliateDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, user) -> None:
+    def delete(self, affiliate: AffiliateDOM) -> None:
         raise NotImplementedError()
 
     @abstractmethod

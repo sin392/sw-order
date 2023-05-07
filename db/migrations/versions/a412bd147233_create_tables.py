@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: 6f30e8152f07
+Revision ID: a412bd147233
 Revises: 
-Create Date: 2023-05-07 06:26:43.218774
+Create Date: 2023-05-07 13:36:24.441937
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6f30e8152f07'
+revision = 'a412bd147233'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -44,6 +44,17 @@ def upgrade() -> None:
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('purchase_rights',
+    sa.Column('id', sa.String(length=36), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
+    sa.Column('affiliate_id', sa.String(length=36), nullable=False),
+    sa.Column('item_id', sa.String(length=36), nullable=False),
+    sa.ForeignKeyConstraint(['affiliate_id'], ['affiliates.id'], ),
+    sa.ForeignKeyConstraint(['item_id'], ['items.id'], ),
+    sa.PrimaryKeyConstraint('affiliate_id', 'item_id')
+    )
+    op.create_index(op.f('ix_purchase_rights_id'), 'purchase_rights', ['id'], unique=True)
     op.create_table('users',
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('first_name', sa.String(length=255), nullable=False),
@@ -88,6 +99,8 @@ def downgrade() -> None:
     op.drop_table('order_items')
     op.drop_table('orders')
     op.drop_table('users')
+    op.drop_index(op.f('ix_purchase_rights_id'), table_name='purchase_rights')
+    op.drop_table('purchase_rights')
     op.drop_table('items')
     op.drop_table('affiliates')
     # ### end Alembic commands ###

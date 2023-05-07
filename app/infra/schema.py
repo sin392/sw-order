@@ -160,6 +160,7 @@ class AffiliateDict(_AffiliateDictBase, total=False):
     email: typing.Optional[str]
     users: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
     orders: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
+    available_items: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TAffiliate(typing.Protocol):
@@ -299,6 +300,7 @@ class ItemDict(_ItemDictBase, total=False):
     img_src: typing.Optional[str]
     sales_start: typing.Optional[str]
     sales_end: typing.Optional[str]
+    allowed_affiliates: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TItem(typing.Protocol):
@@ -655,3 +657,107 @@ class TOrderItem(typing.Protocol):
 
 
 OrderItem: typing.Type[TOrderItem] = models.OrderItem  # type: ignore
+
+
+class PurchaseRightDict(typing.TypedDict, total=True):
+    """TypedDict for properties that are required."""
+
+    id: str
+    created_at: str
+    updated_at: str
+    affiliate_id: str
+    item_id: str
+
+
+class TPurchaseRight(typing.Protocol):
+    """
+    SQLAlchemy model protocol.
+
+    購入権
+
+    Attrs:
+        id: 購入権ID
+        created_at: 作成日
+        updated_at: 更新日
+        affiliate_id: The affiliate_id of the PurchaseRight.
+        item_id: The item_id of the PurchaseRight.
+
+    """
+
+    # SQLAlchemy properties
+    __table__: sqlalchemy.Table
+    __tablename__: str
+    query: orm.Query
+
+    # Model properties
+    id: 'sqlalchemy.Column[str]'
+    created_at: 'sqlalchemy.Column[datetime.datetime]'
+    updated_at: 'sqlalchemy.Column[datetime.datetime]'
+    affiliate_id: 'sqlalchemy.Column[str]'
+    item_id: 'sqlalchemy.Column[str]'
+
+    def __init__(self, id: str, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate_id: str, item_id: str) -> None:
+        """
+        Construct.
+
+        Args:
+            id: 購入権ID
+            created_at: 作成日
+            updated_at: 更新日
+            affiliate_id: The affiliate_id of the PurchaseRight.
+            item_id: The item_id of the PurchaseRight.
+
+        """
+        ...
+
+    @classmethod
+    def from_dict(cls, id: str, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate_id: str, item_id: str) -> "TPurchaseRight":
+        """
+        Construct from a dictionary (eg. a POST payload).
+
+        Args:
+            id: 購入権ID
+            created_at: 作成日
+            updated_at: 更新日
+            affiliate_id: The affiliate_id of the PurchaseRight.
+            item_id: The item_id of the PurchaseRight.
+
+        Returns:
+            Model instance based on the dictionary.
+
+        """
+        ...
+
+    @classmethod
+    def from_str(cls, value: str) -> "TPurchaseRight":
+        """
+        Construct from a JSON string (eg. a POST payload).
+
+        Returns:
+            Model instance based on the JSON string.
+
+        """
+        ...
+
+    def to_dict(self) -> PurchaseRightDict:
+        """
+        Convert to a dictionary (eg. to send back for a GET request).
+
+        Returns:
+            Dictionary based on the model instance.
+
+        """
+        ...
+
+    def to_str(self) -> str:
+        """
+        Convert to a JSON string (eg. to send back for a GET request).
+
+        Returns:
+            JSON string based on the model instance.
+
+        """
+        ...
+
+
+PurchaseRight: typing.Type[TPurchaseRight] = models.PurchaseRight  # type: ignore

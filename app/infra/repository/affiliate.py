@@ -53,4 +53,5 @@ class AffiliateRepository(IAffiliateRepository):
 
     def list(self) -> List[AffiliateDOM]:
         orm_affiliates = self.db.query(Affiliate).all()
+        print(orm_affiliates)
         return orm_list_to_dom_list(AffiliateDOM, orm_affiliates)

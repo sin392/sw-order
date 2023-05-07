@@ -8,6 +8,7 @@ tags:
   - name: Item
   - name: Order
   - name: OrderItem
+  - name: PurchaseRight
 servers:
   - url: http://localhost:8000
 paths:
@@ -433,19 +434,97 @@ paths:
       responses:
         "200":
           description: Success
+  /purchase_rights:
+    get:
+      tags:
+        - PurchaseRight
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PurchaseRight"
+    post:
+      tags:
+        - PurchaseRight
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreatePurchaseRightRequest"
+      responses:
+        "200":
+          description: Success
+  /purchase_rights/{purchase_right_id}:
+    get:
+      tags:
+        - PurchaseRight
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/PurchaseRight"
+    put:
+      tags:
+        - PurchaseRight
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/UpdatePurchaseRightRequest"
+      responses:
+        "200":
+          description: Success
+    delete:
+      tags:
+        - PurchaseRight
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
 
 components:
   schemas:
-    BaseUser:
+    BaseID:
       type: object
-      description: 担当者(Base)
+      description: ベースID
       properties:
         id:
           type: string
           minLength: 36
           maxLength: 36
           format: uuid
-          description: ユーザID
+          description: ID
       required:
         - id
     User:
@@ -502,7 +581,7 @@ components:
           readOnly: True
           type: array
           items:
-            $ref: "#/components/schemas/BaseOrder"
+            $ref: "#/components/schemas/BaseID"
       required:
         - id
         - first_name
@@ -572,12 +651,21 @@ components:
           readOnly: True
           type: array
           items:
-            $ref: "#/components/schemas/BaseUser"
+            $ref: "#/components/schemas/BaseID"
         orders:
           readOnly: True
           type: array
           items:
-            $ref: "#/components/schemas/BaseOrder"
+            $ref: "#/components/schemas/BaseID"
+        available_items:
+          readOnly: true
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/BaseID"
+              # - x-backref: allowed_affiliates
+              #   x-secondary: purchase_rights
+              - x-secondary: purchase_rights
       required:
         - id
         - name
@@ -648,6 +736,17 @@ components:
           format: date-time
           x-server-default: Now()
           description: 更新日
+        allowed_affiliates:
+          readOnly: true
+          type: array
+          # items:
+          #   $ref: "#/components/schemas/BaseID"
+          items:
+            allOf:
+              - $ref: "#/components/schemas/BaseID"
+              # - x-backref: available_items
+              #   x-secondary: purchase_rights
+              - x-secondary: purchase_rights
       required:
         - id
         - name
@@ -656,18 +755,6 @@ components:
         - unit_price
         - created_at
         - updated_at
-    BaseOrder:
-      type: object
-      description: 注文(Base)
-      properties:
-        id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-          description: 注文ID
-      required:
-        - id
     Order:
       type: object
       description: 注文
@@ -727,7 +814,7 @@ components:
           readOnly: True
           type: array
           items:
-            $ref: "#/components/schemas/BaseOrderItem"
+            $ref: "#/components/schemas/BaseID"
       required:
         - id
         - postcode
@@ -737,18 +824,6 @@ components:
         - updated_at
         - affiliate
         - user
-    BaseOrderItem:
-      type: object
-      description: 商品明細(Base)
-      properties:
-        id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-          description: 商品明細ID
-      required:
-        - id
     OrderItem:
       type: object
       description: 注文明細
@@ -756,6 +831,7 @@ components:
       properties:
         id:
           type: string
+          minLength: 36
           maxLength: 36
           format: uuid
           description: 注文明細ID
@@ -788,6 +864,51 @@ components:
         - updated_at
         - order
         - item
+    PurchaseRight:
+      type: object
+      description: 購入権
+      x-tablename: purchase_rights
+      properties:
+        id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: 購入権ID
+          # association tableではprimary keyは二つのFKに使用される
+          # x-primary-key: true
+          x-index: true
+          x-unique: true
+        created_at:
+          type: string
+          format: date-time
+          x-server-default: Now()
+          description: 作成日
+        updated_at:
+          type: string
+          format: date-time
+          x-server-default: Now()
+          description: 更新日
+        affiliate_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          x-primary-key: true
+          x-foreign-key: affiliates.id
+        item_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          x-primary-key: true
+          x-foreign-key: items.id
+      required:
+        - id
+        - created_at
+        - updated_at
+        - affiliate_id
+        - item_id
     CreateUserRequest:
       type: object
       properties:
@@ -1105,15 +1226,15 @@ components:
           example: 1
         order_id:
           type: string
+          format: uuid
           minLength: 36
           maxLength: 36
-          format: uuid
           description: 注文ID
         item_id:
           type: string
+          format: uuid
           minLength: 36
           maxLength: 36
-          format: uuid
           description: 商品ID
       required:
         - quantity
@@ -1127,3 +1248,36 @@ components:
           description: 個数
           minimum: 1
           example: 1
+    CreatePurchaseRightRequest:
+      type: object
+      properties:
+        affiliate_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: 加盟組織ID
+        item_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: 商品ID
+      required:
+        - affiliate_id
+        - item_id
+    UpdatePurchaseRightRequest:
+      type: object
+      properties:
+        affiliate_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: 加盟組織ID
+        item_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: 商品ID

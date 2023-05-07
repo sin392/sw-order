@@ -18,7 +18,7 @@ class IOrderItemUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def delete(self, order) -> None:
+    def delete(self, order_item_id: str) -> None:
         raise NotImplementedError()
 
     @abstractmethod
