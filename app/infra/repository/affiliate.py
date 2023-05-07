@@ -17,6 +17,7 @@ class AffiliateRepository(IAffiliateRepository):
         return orm_to_dom(AffiliateDOM, orm_affiliate) if orm_affiliate else None
 
     def save(self, affiliate: AffiliateDOM) -> None:
+        print(affiliate.to_rdb_dict())
         orm_affiliate = Affiliate(**affiliate.to_rdb_dict())
         try:
             self.db.add(orm_affiliate)

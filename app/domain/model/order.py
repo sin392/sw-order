@@ -1,38 +1,30 @@
+
+
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, validator
 from pydantic.fields import ModelField
 
-# 以下をコメントインすると循環参照になる
-# from .user import BaseUserDOM
+from .affiliate import AffiliateDOM
+from .user import UserDOM
 
 
-class _ID(BaseModel):
+class OrderDOM(BaseModel):
     id: UUID
-
-    class Config:
-        orm_mode = True
-
-
-class AffiliateDOM(BaseModel):
-    id: UUID
-    name: str
     postcode: str
     address: str
-    tel: str
-    fax: Optional[str]
-    email: Optional[str]
+    approved_flag: bool
     created_at: Optional[datetime]  # server_default
     updated_at: Optional[datetime]  # server_default
-    users: Optional[List[_ID]]
-    orders: Optional[List[_ID]]
+    affiliate: AffiliateDOM
+    user: UserDOM
 
     class Config:
         orm_mode = True
 
-    @validator('name', 'postcode', 'address', 'tel')
+    @validator('postcode', 'address')
     def prohibit_empty_str(cls, v: str, field: ModelField) -> str:
         if len(v) == 0:
             raise ValueError(f'{field}には1文字以上の文字列を指定してください')
@@ -44,7 +36,11 @@ class AffiliateDOM(BaseModel):
                 setattr(self, k, v)
 
     def to_rdb_dict(self) -> dict:
-        params = {**self.dict()}
-        params.pop('users', None)
-        params.pop('orders', None)
+        params = {
+            **self.dict(),
+            "affiliate_id": self.affiliate.id,
+            "user_id": self.user.id
+        }
+        params.pop('affiliate', None)
+        params.pop('user', None)
         return params

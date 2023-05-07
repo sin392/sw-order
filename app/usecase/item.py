@@ -18,7 +18,6 @@ class ItemUsecase(IItemUsecase):
 
     def save(self, body: CreateItemRequest) -> None:
         params = {**body.dict(), "id": uuid4()}
-        print(params)
         item = ItemDOM(**params)
         return self.repo.save(item)
 

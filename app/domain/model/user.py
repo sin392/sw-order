@@ -8,6 +8,13 @@ from pydantic.fields import ModelField
 from .affiliate import AffiliateDOM
 
 
+class _ID(BaseModel):
+    id: UUID
+
+    class Config:
+        orm_mode = True
+
+
 class UserDOM(BaseModel):
     id: UUID
     first_name: str
@@ -17,6 +24,7 @@ class UserDOM(BaseModel):
     created_at: Optional[datetime]  # server_default
     updated_at: Optional[datetime]  # server_default
     affiliate: Optional[AffiliateDOM]
+    orders: Optional[_ID]
 
     class Config:
         orm_mode = True
@@ -34,5 +42,6 @@ class UserDOM(BaseModel):
 
     def to_rdb_dict(self) -> dict:
         params = {**self.dict(), "affiliate_id": self.affiliate.id}
-        params.pop('affiliate')
+        params.pop('affiliate', None)
+        params.pop('orders', None)
         return params

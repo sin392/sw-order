@@ -28,6 +28,7 @@ class UserDict(_UserDictBase, total=False):
 
     email: typing.Optional[str]
     affiliate: typing.Optional["AffiliateDict"]
+    orders: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TUser(typing.Protocol):
@@ -45,6 +46,7 @@ class TUser(typing.Protocol):
         created_at: 作成日
         updated_at: 更新日
         affiliate: The affiliate of the User.
+        orders: The orders of the User.
 
     """
 
@@ -62,8 +64,9 @@ class TUser(typing.Protocol):
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
     affiliate: 'sqlalchemy.Column[typing.Optional["TAffiliate"]]'
+    orders: 'sqlalchemy.Column[typing.Sequence["TOrder"]]'
 
-    def __init__(self, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["TAffiliate"] = None) -> None:
+    def __init__(self, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["TAffiliate"] = None, orders: typing.Optional[typing.Sequence["TOrder"]] = None) -> None:
         """
         Construct.
 
@@ -76,6 +79,7 @@ class TUser(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             affiliate: The affiliate of the User.
+            orders: The orders of the User.
 
         """
         ...
@@ -94,6 +98,7 @@ class TUser(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             affiliate: The affiliate of the User.
+            orders: The orders of the User.
 
         Returns:
             Model instance based on the dictionary.
@@ -154,6 +159,7 @@ class AffiliateDict(_AffiliateDictBase, total=False):
     fax: typing.Optional[str]
     email: typing.Optional[str]
     users: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
+    orders: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TAffiliate(typing.Protocol):
@@ -173,6 +179,7 @@ class TAffiliate(typing.Protocol):
         created_at: 作成日
         updated_at: 更新日
         users: The users of the Affiliate.
+        orders: The orders of the Affiliate.
 
     """
 
@@ -192,8 +199,9 @@ class TAffiliate(typing.Protocol):
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
     users: 'sqlalchemy.Column[typing.Sequence["TUser"]]'
+    orders: 'sqlalchemy.Column[typing.Sequence["TOrder"]]'
 
-    def __init__(self, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, users: typing.Optional[typing.Sequence["TUser"]] = None) -> None:
+    def __init__(self, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, users: typing.Optional[typing.Sequence["TUser"]] = None, orders: typing.Optional[typing.Sequence["TOrder"]] = None) -> None:
         """
         Construct.
 
@@ -208,6 +216,7 @@ class TAffiliate(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             users: The users of the Affiliate.
+            orders: The orders of the Affiliate.
 
         """
         ...
@@ -228,6 +237,7 @@ class TAffiliate(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             users: The users of the Affiliate.
+            orders: The orders of the Affiliate.
 
         Returns:
             Model instance based on the dictionary.
@@ -407,3 +417,112 @@ class TItem(typing.Protocol):
 
 
 Item: typing.Type[TItem] = models.Item  # type: ignore
+
+
+class OrderDict(typing.TypedDict, total=True):
+    """TypedDict for properties that are required."""
+
+    id: str
+    postcode: str
+    address: str
+    approved_flag: bool
+    affiliate: "AffiliateDict"
+    user: "UserDict"
+
+
+class TOrder(typing.Protocol):
+    """
+    SQLAlchemy model protocol.
+
+    注文
+
+    Attrs:
+        id: 注文ID
+        postcode: 届け先郵便番号
+        address: 届け先住所
+        approved_flag: 承認フラグ
+        affiliate: The affiliate of the Order.
+        user: The user of the Order.
+
+    """
+
+    # SQLAlchemy properties
+    __table__: sqlalchemy.Table
+    __tablename__: str
+    query: orm.Query
+
+    # Model properties
+    id: 'sqlalchemy.Column[str]'
+    postcode: 'sqlalchemy.Column[str]'
+    address: 'sqlalchemy.Column[str]'
+    approved_flag: 'sqlalchemy.Column[bool]'
+    affiliate: 'sqlalchemy.Column["TAffiliate"]'
+    user: 'sqlalchemy.Column["TUser"]'
+
+    def __init__(self, id: str, postcode: str, address: str, approved_flag: bool, affiliate: "TAffiliate", user: "TUser") -> None:
+        """
+        Construct.
+
+        Args:
+            id: 注文ID
+            postcode: 届け先郵便番号
+            address: 届け先住所
+            approved_flag: 承認フラグ
+            affiliate: The affiliate of the Order.
+            user: The user of the Order.
+
+        """
+        ...
+
+    @classmethod
+    def from_dict(cls, id: str, postcode: str, address: str, approved_flag: bool, affiliate: "AffiliateDict", user: "UserDict") -> "TOrder":
+        """
+        Construct from a dictionary (eg. a POST payload).
+
+        Args:
+            id: 注文ID
+            postcode: 届け先郵便番号
+            address: 届け先住所
+            approved_flag: 承認フラグ
+            affiliate: The affiliate of the Order.
+            user: The user of the Order.
+
+        Returns:
+            Model instance based on the dictionary.
+
+        """
+        ...
+
+    @classmethod
+    def from_str(cls, value: str) -> "TOrder":
+        """
+        Construct from a JSON string (eg. a POST payload).
+
+        Returns:
+            Model instance based on the JSON string.
+
+        """
+        ...
+
+    def to_dict(self) -> OrderDict:
+        """
+        Convert to a dictionary (eg. to send back for a GET request).
+
+        Returns:
+            Dictionary based on the model instance.
+
+        """
+        ...
+
+    def to_str(self) -> str:
+        """
+        Convert to a JSON string (eg. to send back for a GET request).
+
+        Returns:
+            JSON string based on the model instance.
+
+        """
+        ...
+
+
+Order: typing.Type[TOrder] = models.Order  # type: ignore
