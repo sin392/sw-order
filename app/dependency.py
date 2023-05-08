@@ -29,7 +29,7 @@ usecase_pairs = [
 ]
 
 
-class Dependency():
+class Dependency:
     def __init__(self, db: Session) -> None:
         self.db = db
         self.injector = Injector(self.config)
