@@ -19,7 +19,6 @@ class AffiliateRepository(IAffiliateRepository):
         return orm_to_dom(AffiliateDOM, orm_affiliate) if orm_affiliate else None
 
     def save(self, affiliate: AffiliateDOM) -> None:
-        print(affiliate.to_rdb_dict())
         orm_affiliate = Affiliate(**affiliate.to_rdb_dict())
         try:
             self.db.add(orm_affiliate)
@@ -55,5 +54,4 @@ class AffiliateRepository(IAffiliateRepository):
 
     def list(self) -> List[AffiliateDOM]:
         orm_affiliates = self.db.query(Affiliate).all()
-        print(orm_affiliates)
         return orm_list_to_dom_list(AffiliateDOM, orm_affiliates)
