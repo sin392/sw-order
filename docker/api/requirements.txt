@@ -5,3 +5,4 @@ openalchemy==2.5.0
 SQLAlchemy==1.4.48
 uvicorn==0.22.0
 fastapi-code-generator==0.4.2
+injector==0.20.1

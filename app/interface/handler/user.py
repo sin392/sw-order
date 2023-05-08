@@ -1,6 +1,8 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+from injector import inject
+
 from .dto import CreateUserRequest, UpdateUserRequest, User
 
 
@@ -27,6 +29,7 @@ class IUserUsecase(ABC):
 
 
 class UserHandler:
+    @inject
     def __init__(self, usecase: IUserUsecase) -> None:
         self.usecase = usecase
 

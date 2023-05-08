@@ -1,6 +1,8 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+from injector import inject
+
 from .dto import CreateAffiliateRequest, UpdateAffiliateRequest, Affiliate
 
 
@@ -27,6 +29,7 @@ class IAffiliateUsecase(ABC):
 
 
 class AffiliateHandler:
+    @inject
     def __init__(self, usecase: IAffiliateUsecase) -> None:
         self.usecase = usecase
 

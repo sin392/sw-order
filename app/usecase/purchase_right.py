@@ -1,6 +1,8 @@
 from typing import List
 from uuid import uuid4
 
+from injector import inject
+
 from domain.model import PurchaseRightDOM
 from domain.repository import IPurchaseRightRepository, IAffiliateRepository, IItemRepository
 from interface.handler.purchase_right import IPurchaseRightUsecase
@@ -9,6 +11,7 @@ from .util import dom_to_dto, dom_list_to_dto_list
 
 
 class PurchaseRightUsecase(IPurchaseRightUsecase):
+    @inject
     def __init__(self, purchaseRightRepo: IPurchaseRightRepository,
                  affiliateRepo: IAffiliateRepository,
                  itemRepo: IItemRepository) -> None:

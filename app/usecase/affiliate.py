@@ -1,6 +1,8 @@
 from typing import List
 from uuid import uuid4
 
+from injector import inject
+
 from domain.model import AffiliateDOM
 from domain.repository import IAffiliateRepository
 from interface.handler.affiliate import IAffiliateUsecase
@@ -9,6 +11,7 @@ from .util import dom_to_dto, dom_list_to_dto_list
 
 
 class AffiliateUsecase(IAffiliateUsecase):
+    @inject
     def __init__(self, repo: IAffiliateRepository) -> None:
         self.repo = repo
 

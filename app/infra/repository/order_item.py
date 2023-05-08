@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
+from injector import inject
 
 from domain.repository import IOrderItemRepository
 from domain.model import OrderItemDOM
@@ -9,6 +10,7 @@ from .util import orm_to_dom, orm_list_to_dom_list
 
 
 class OrderItemRepository(IOrderItemRepository):
+    @inject
     def __init__(self, db: Session) -> None:
         self.db = db
 

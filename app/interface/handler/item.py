@@ -1,6 +1,8 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+from injector import inject
+
 from .dto import CreateItemRequest, UpdateItemRequest, Item
 
 
@@ -27,6 +29,7 @@ class IItemUsecase(ABC):
 
 
 class ItemHandler:
+    @inject
     def __init__(self, usecase: IItemUsecase) -> None:
         self.usecase = usecase
 

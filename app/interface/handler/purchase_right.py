@@ -1,6 +1,8 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+from injector import inject
+
 from .dto import CreatePurchaseRightRequest, UpdatePurchaseRightRequest, PurchaseRight
 
 
@@ -27,6 +29,7 @@ class IPurchaseRightUsecase(ABC):
 
 
 class PurchaseRightHandler:
+    @inject
     def __init__(self, usecase: IPurchaseRightUsecase) -> None:
         self.usecase = usecase
 

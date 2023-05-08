@@ -1,6 +1,8 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+from injector import inject
+
 from .dto import CreateOrderItemRequest, UpdateOrderItemRequest, OrderItem
 
 
@@ -27,6 +29,7 @@ class IOrderItemUsecase(ABC):
 
 
 class OrderItemHandler:
+    @inject
     def __init__(self, usecase: IOrderItemUsecase) -> None:
         self.usecase = usecase
 

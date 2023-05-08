@@ -1,6 +1,8 @@
 from typing import List
 from uuid import uuid4
 
+from injector import inject
+
 from domain.model import OrderItemDOM
 from domain.repository import IOrderRepository, IOrderItemRepository, IItemRepository
 from interface.handler.order_item import IOrderItemUsecase
@@ -9,6 +11,7 @@ from .util import dom_to_dto, dom_list_to_dto_list
 
 
 class OrderItemUsecase(IOrderItemUsecase):
+    @inject
     def __init__(self, orderItemRepo: IOrderItemRepository,
                  orderRepo: IOrderRepository,
                  itemRepo: IItemRepository) -> None:
