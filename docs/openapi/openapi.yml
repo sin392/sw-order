@@ -1,4 +1,3 @@
-# openapi: "3.0.2"
 openapi: "3.1.0"
 info:
   title: API Title
@@ -31,7 +30,7 @@ paths:
   /orders/{order_id}:
     $ref: "./paths/orders/{order_id}/index.yml"
   /orders/{order_id}/items:
-    $ref: "./paths/orders/index.yml"
+    $ref: "./paths/order_items/index.yml"
   /orders/{order_id}/items/{order_item_id}:
     $ref: "./paths/order_items/{order_item_id}/index.yml"
   /purchase_rights:

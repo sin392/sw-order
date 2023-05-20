@@ -9,7 +9,7 @@ get:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/PurchaseRight"
+              $ref: "../../schemas/purchase_right.yml#/schemas/PurchaseRight"
 post:
   tags:
     - PurchaseRight
@@ -19,7 +19,7 @@ post:
       application/json:
         schema:
           type: object
-          $ref: "#/components/schemas/CreatePurchaseRightRequest"
+          $ref: "../../schemas/purchase_right.yml#/schemas/CreatePurchaseRightRequest"
   responses:
     "200":
       description: Success

@@ -9,7 +9,7 @@ get:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/Affiliate"
+              $ref: "../../schemas/affiliate.yml#/schemas/Affiliate"
 post:
   tags:
     - Affiliate
@@ -19,7 +19,7 @@ post:
       application/json:
         schema:
           type: object
-          $ref: "#/components/schemas/CreateAffiliateRequest"
+          $ref: "../../schemas/affiliate.yml#/schemas/CreateAffiliateRequest"
   responses:
     "200":
       description: Success

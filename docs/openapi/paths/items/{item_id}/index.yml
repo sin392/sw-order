@@ -15,7 +15,7 @@ get:
         application/json:
           schema:
             type: object
-            $ref: "#/components/schemas/Item"
+            $ref: "../../../schemas/item.yml#/schemas/Item"
 put:
   tags:
     - Item
@@ -32,7 +32,7 @@ put:
       application/json:
         schema:
           type: object
-          $ref: "#/components/schemas/UpdateItemRequest"
+          $ref: "../../../schemas/item.yml#/schemas/UpdateItemRequest"
   responses:
     "200":
       description: Success

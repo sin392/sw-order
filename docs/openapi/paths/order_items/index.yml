@@ -16,7 +16,7 @@ get:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/OrderItem"
+              $ref: "../../schemas/order_item.yml#/schemas/OrderItem"
 post:
   tags:
     - OrderItem
@@ -33,7 +33,7 @@ post:
       application/json:
         schema:
           type: object
-          $ref: "#/components/schemas/CreateOrderItemRequest"
+          $ref: "../../schemas/order_item.yml#/schemas/CreateOrderItemRequest"
   responses:
     "200":
       description: Success

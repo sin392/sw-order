@@ -9,7 +9,7 @@ get:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/Order"
+              $ref: "../../schemas/order.yml#/schemas/Order"
 post:
   tags:
     - Order
@@ -19,7 +19,7 @@ post:
       application/json:
         schema:
           type: object
-          $ref: "#/components/schemas/CreateOrderRequest"
+          $ref: "../../schemas/order.yml#/schemas/CreateOrderRequest"
   responses:
     "200":
       description: Success
