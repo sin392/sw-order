@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 import open_alchemy
 
-from env import DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
+from env import DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, OPENAPI_FILE
 
 DATABASE = "mysql://{}:{}@{}/{}?charset=utf8".format(
     DB_USER,
@@ -13,7 +13,7 @@ DATABASE = "mysql://{}:{}@{}/{}?charset=utf8".format(
 
 # ref: https://openapi-sqlalchemy.readthedocs.io/en/latest/index.html#alembic
 # TODO: 相対パスとか環境変数に変更したい
-open_alchemy.init_yaml(spec_filename="/home/docs/openapi.yml")
+open_alchemy.init_yaml(spec_filename=OPENAPI_FILE)
 
 engine = create_engine(DATABASE)
 
