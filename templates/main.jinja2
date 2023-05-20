@@ -19,9 +19,10 @@ app = FastAPI(
 from dependency import Dependency # type: ignore # noqa
 injector = Dependency(db = SessionLocal()) # DI container
 
+
 {# router分割とカスタムテンプレートが併用できないのでmain.pyに平置き #}
 {% for operation in operations %}
-@app.{{operation.type}}('{{operation.snake_case_path}}', response_model={{operation.response}}
+@app.{{operation.type}}('{{operation.snake_case_path}}', response_model={{operation.response | replace("1", "")}}
     {% if operation.additional_responses %}
         , responses={
             {% for status_code, models in operation.additional_responses.items() %}
@@ -38,8 +39,8 @@ injector = Dependency(db = SessionLocal()) # DI container
     {% endif %}
 )
 async def {{operation.function_name}}(
-    {{operation.snake_case_arguments}}
-    ) -> {{operation.return_type}}:
+    {{operation.snake_case_arguments | replace("1", "")}}
+    ) -> {{operation.return_type | replace("1", "")}}:
     {%- if operation.summary %}
     """
     {{ operation.summary }}

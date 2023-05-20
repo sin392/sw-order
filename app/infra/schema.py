@@ -46,7 +46,6 @@ class TUser(typing.Protocol):
         created_at: 作成日
         updated_at: 更新日
         affiliate: The affiliate of the User.
-        orders: The orders of the User.
 
     """
 
@@ -64,9 +63,8 @@ class TUser(typing.Protocol):
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
     affiliate: 'sqlalchemy.Column[typing.Optional["TAffiliate"]]'
-    orders: 'sqlalchemy.Column[typing.Sequence["TOrder"]]'
 
-    def __init__(self, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["TAffiliate"] = None, orders: typing.Optional[typing.Sequence["TOrder"]] = None) -> None:
+    def __init__(self, id: str, first_name: str, last_name: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, email: typing.Optional[str] = None, affiliate: typing.Optional["TAffiliate"] = None) -> None:
         """
         Construct.
 
@@ -79,7 +77,6 @@ class TUser(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             affiliate: The affiliate of the User.
-            orders: The orders of the User.
 
         """
         ...
@@ -98,7 +95,6 @@ class TUser(typing.Protocol):
             created_at: 作成日
             updated_at: 更新日
             affiliate: The affiliate of the User.
-            orders: The orders of the User.
 
         Returns:
             Model instance based on the dictionary.
@@ -160,7 +156,6 @@ class AffiliateDict(_AffiliateDictBase, total=False):
     email: typing.Optional[str]
     users: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
     orders: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
-    available_items: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TAffiliate(typing.Protocol):
@@ -179,8 +174,6 @@ class TAffiliate(typing.Protocol):
         email: メールアドレス
         created_at: 作成日
         updated_at: 更新日
-        users: The users of the Affiliate.
-        orders: The orders of the Affiliate.
 
     """
 
@@ -199,10 +192,8 @@ class TAffiliate(typing.Protocol):
     email: 'sqlalchemy.Column[typing.Optional[str]]'
     created_at: 'sqlalchemy.Column[datetime.datetime]'
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
-    users: 'sqlalchemy.Column[typing.Sequence["TUser"]]'
-    orders: 'sqlalchemy.Column[typing.Sequence["TOrder"]]'
 
-    def __init__(self, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None, users: typing.Optional[typing.Sequence["TUser"]] = None, orders: typing.Optional[typing.Sequence["TOrder"]] = None) -> None:
+    def __init__(self, id: str, name: str, postcode: str, address: str, tel: str, created_at: datetime.datetime, updated_at: datetime.datetime, fax: typing.Optional[str] = None, email: typing.Optional[str] = None) -> None:
         """
         Construct.
 
@@ -216,8 +207,6 @@ class TAffiliate(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
-            users: The users of the Affiliate.
-            orders: The orders of the Affiliate.
 
         """
         ...
@@ -237,8 +226,6 @@ class TAffiliate(typing.Protocol):
             email: メールアドレス
             created_at: 作成日
             updated_at: 更新日
-            users: The users of the Affiliate.
-            orders: The orders of the Affiliate.
 
         Returns:
             Model instance based on the dictionary.
@@ -300,7 +287,6 @@ class ItemDict(_ItemDictBase, total=False):
     img_src: typing.Optional[str]
     sales_start: typing.Optional[str]
     sales_end: typing.Optional[str]
-    allowed_affiliates: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TItem(typing.Protocol):
@@ -437,7 +423,7 @@ class _OrderDictBase(typing.TypedDict, total=True):
 class OrderDict(_OrderDictBase, total=False):
     """TypedDict for properties that are not required."""
 
-    items: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
+    order_items: typing.Sequence[typing.Dict[str, typing.Union[int, float, str, bool]]]
 
 
 class TOrder(typing.Protocol):
@@ -455,7 +441,6 @@ class TOrder(typing.Protocol):
         updated_at: 更新日
         affiliate: The affiliate of the Order.
         user: The user of the Order.
-        items: The items of the Order.
 
     """
 
@@ -473,9 +458,8 @@ class TOrder(typing.Protocol):
     updated_at: 'sqlalchemy.Column[datetime.datetime]'
     affiliate: 'sqlalchemy.Column["TAffiliate"]'
     user: 'sqlalchemy.Column["TUser"]'
-    items: 'sqlalchemy.Column[typing.Sequence["TOrderItem"]]'
 
-    def __init__(self, id: str, postcode: str, address: str, approved_flag: bool, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate: "TAffiliate", user: "TUser", items: typing.Optional[typing.Sequence["TOrderItem"]] = None) -> None:
+    def __init__(self, id: str, postcode: str, address: str, approved_flag: bool, created_at: datetime.datetime, updated_at: datetime.datetime, affiliate: "TAffiliate", user: "TUser") -> None:
         """
         Construct.
 
@@ -488,7 +472,6 @@ class TOrder(typing.Protocol):
             updated_at: 更新日
             affiliate: The affiliate of the Order.
             user: The user of the Order.
-            items: The items of the Order.
 
         """
         ...
@@ -507,7 +490,6 @@ class TOrder(typing.Protocol):
             updated_at: 更新日
             affiliate: The affiliate of the Order.
             user: The user of the Order.
-            items: The items of the Order.
 
         Returns:
             Model instance based on the dictionary.

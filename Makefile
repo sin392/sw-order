@@ -15,6 +15,8 @@ generate-schema:
 
 generate-code:
 	# NOTE: routersを有効化するとtemplateが機能しなくなる（デフォルトが強制される）
+	# NOTE: fastapi-codegenはoasの相対importをカレントディレクトリ基準で解決するのでcd
+	cd ${openapi_dir} && \
 	fastapi-codegen \
 		--template-dir ${templates_dir} \
 		--input ${openapi_dir}/openapi.yml \
