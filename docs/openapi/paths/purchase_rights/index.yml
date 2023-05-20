@@ -1,0 +1,25 @@
+get:
+  tags:
+    - PurchaseRight
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PurchaseRight"
+post:
+  tags:
+    - PurchaseRight
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/CreatePurchaseRightRequest"
+  responses:
+    "200":
+      description: Success

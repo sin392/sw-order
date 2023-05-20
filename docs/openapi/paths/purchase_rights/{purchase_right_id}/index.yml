@@ -1,0 +1,51 @@
+get:
+  tags:
+    - PurchaseRight
+  parameters:
+    - in: path
+      name: purchase_right_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "#/components/schemas/PurchaseRight"
+put:
+  tags:
+    - PurchaseRight
+  parameters:
+    - in: path
+      name: purchase_right_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/UpdatePurchaseRightRequest"
+  responses:
+    "200":
+      description: Success
+delete:
+  tags:
+    - PurchaseRight
+  parameters:
+    - in: path
+      name: purchase_right_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success

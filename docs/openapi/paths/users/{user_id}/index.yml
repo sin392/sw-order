@@ -1,0 +1,51 @@
+get:
+  tags:
+    - User
+  parameters:
+    - in: path
+      name: user_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "#/components/schemas/User"
+put:
+  tags:
+    - User
+  parameters:
+    - in: path
+      name: user_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/UpdateUserRequest"
+  responses:
+    "200":
+      description: Success
+delete:
+  tags:
+    - User
+  parameters:
+    - in: path
+      name: user_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success

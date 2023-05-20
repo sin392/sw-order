@@ -1,0 +1,69 @@
+get:
+  tags:
+    - OrderItem
+  parameters:
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "#/components/schemas/OrderItem"
+put:
+  tags:
+    - OrderItem
+  parameters:
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/UpdateOrderItemRequest"
+  responses:
+    "200":
+      description: Success
+delete:
+  tags:
+    - OrderItem
+  parameters:
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_item_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success

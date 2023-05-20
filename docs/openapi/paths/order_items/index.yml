@@ -1,0 +1,39 @@
+get:
+  tags:
+    - OrderItem
+  parameters:
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/OrderItem"
+post:
+  tags:
+    - OrderItem
+  parameters:
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/CreateOrderItemRequest"
+  responses:
+    "200":
+      description: Success

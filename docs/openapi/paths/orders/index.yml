@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Order
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Order"
+post:
+  tags:
+    - Order
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          $ref: "#/components/schemas/CreateOrderRequest"
+  responses:
+    "200":
+      description: Success
