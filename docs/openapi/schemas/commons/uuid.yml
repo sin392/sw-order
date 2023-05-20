@@ -1,12 +1,6 @@
 schemas:
   UUID:
-    type: object
-    properties:
-      id:
-        type: string
-        minLength: 36
-        maxLength: 36
-        format: uuid
-        description: ID
-    required:
-      - id
+    type: string
+    minLength: 36
+    maxLength: 36
+    format: uuid

@@ -1,8 +1,13 @@
 schemas:
   ItemID:
-    $ref: "./commons/uuid.yml#/schemas/UUID"
-    description: 商品ID
-    x-primary-key: true
+    type: object
+    properties:
+      id:
+        $ref: "./commons/uuid.yml#/schemas/UUID"
+        description: 商品ID
+        x-primary-key: true
+    required:
+      - id
   Item:
     type: object
     description: 商品

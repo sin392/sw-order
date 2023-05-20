@@ -1,8 +1,13 @@
 schemas:
   OrderItemID:
-    $ref: "./commons/uuid.yml#/schemas/UUID"
-    description: 注文明細ID
-    x-primary-key: true
+    type: object
+    properties:
+      id:
+        $ref: "./commons/uuid.yml#/schemas/UUID"
+        description: 注文明細ID
+        x-primary-key: true
+    required:
+      - id
   OrderItem:
     type: object
     description: 注文明細

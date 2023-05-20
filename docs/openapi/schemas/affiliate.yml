@@ -1,8 +1,13 @@
 schemas:
   AffiliateID:
-    $ref: "./commons/uuid.yml#/schemas/UUID"
-    description: 加盟組織ID
-    x-primary-key: true
+    type: object
+    properties:
+      id:
+        $ref: "./commons/uuid.yml#/schemas/UUID"
+        description: 加盟組織ID
+        x-primary-key: true
+    required:
+      - id
   Affiliate:
     type: object
     description: 加盟組織

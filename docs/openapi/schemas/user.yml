@@ -1,8 +1,13 @@
 schemas:
   UserID:
-    $ref: "./commons/uuid.yml#/schemas/UUID"
-    description: ユーザID
-    x-primary-key: true
+    type: object
+    properties:
+      id:
+        $ref: "./commons/uuid.yml#/schemas/UUID"
+        description: ユーザID
+        x-primary-key: true
+    required:
+      - id
   User:
     type: object
     description: 担当者

@@ -1,11 +1,16 @@
 schemas:
   PurchaseRightID:
-    $ref: "./commons/uuid.yml#/schemas/UUID"
-    description: 購入権ID
-    # association tableではprimary keyは二つのFKに使用される
-    # x-primary-key: true
-    x-index: true
-    x-unique: true
+    type: object
+    properties:
+      id:
+        $ref: "./commons/uuid.yml#/schemas/UUID"
+        description: 購入権ID
+        # association tableではprimary keyは二つのFKに使用される
+        # x-primary-key: true
+        x-index: true
+        x-unique: true
+    required:
+      - id
   PurchaseRight:
     type: object
     description: 購入権
