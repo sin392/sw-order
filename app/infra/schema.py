@@ -302,8 +302,8 @@ class TItem(typing.Protocol):
         name: 商品名
         description: 商品名
         img_src: The img_src of the Item.
-        category: カテゴリ(0:缶バッジ, -1:その他)
-        type: タイプ(0:通常, 1:限定, -1:その他)
+        category: カテゴリ(0: 缶バッジ, -1: その他)
+        type: タイプ(0: 通常, 1: 限定, -1: その他)
         unit_price: 単価
         sales_start: 作成日
         sales_end: 作成日
@@ -339,8 +339,8 @@ class TItem(typing.Protocol):
             name: 商品名
             description: 商品名
             img_src: The img_src of the Item.
-            category: カテゴリ(0:缶バッジ, -1:その他)
-            type: タイプ(0:通常, 1:限定, -1:その他)
+            category: カテゴリ(0: 缶バッジ, -1: その他)
+            type: タイプ(0: 通常, 1: 限定, -1: その他)
             unit_price: 単価
             sales_start: 作成日
             sales_end: 作成日
@@ -360,8 +360,8 @@ class TItem(typing.Protocol):
             name: 商品名
             description: 商品名
             img_src: The img_src of the Item.
-            category: カテゴリ(0:缶バッジ, -1:その他)
-            type: タイプ(0:通常, 1:限定, -1:その他)
+            category: カテゴリ(0: 缶バッジ, -1: その他)
+            type: タイプ(0: 通常, 1: 限定, -1: その他)
             unit_price: 単価
             sales_start: 作成日
             sales_end: 作成日

@@ -10,42 +10,42 @@ servers:
 paths:
   /users:
     $ref: "./paths/users/index.yml"
-  /users/{user_id}:
-    $ref: "./paths/users/{user_id}/index.yml"
-  /affiliates:
-    $ref: "./paths/affiliates/index.yml"
-  /affiliates/{affiliate_id}:
-    $ref: "./paths/affiliates/{affiliate_id}/index.yml"
-  /items:
-    $ref: "./paths/items/index.yml"
-  /items/{item_id}:
-    $ref: "./paths/items/{item_id}/index.yml"
+  # /users/{user_id}:
+  #   $ref: "./paths/users/{user_id}/index.yml"
+  # /affiliates:
+  #   $ref: "./paths/affiliates/index.yml"
+  # /affiliates/{affiliate_id}:
+  #   $ref: "./paths/affiliates/{affiliate_id}/index.yml"
+  # /items:
+  #   $ref: "./paths/items/index.yml"
+  # /items/{item_id}:
+  #   $ref: "./paths/items/{item_id}/index.yml"
 # fastapi-codegenを使う場合components句必須かつ、スキーマは#/~~/Userみたいに参照されなければいけない？
 components:
   schemas:
     # base models
     BaseUser:
-      $ref: "./schemas/models/base_user.yml"
+      $ref: "./schemas/models/base_user.yml#/BaseUser"
     # actual models (tables)
     User:
       x-tablename: users
-      $ref: "./schemas/models/user.yml"
+      $ref: "./schemas/models/user.yml#/User"
     Affiliate:
       x-tablename: affiliates
-      $ref: "./schemas/models/affiliate.yml"
+      $ref: "./schemas/models/affiliate.yml#/Affiliate"
     Item:
       x-tablename: items
-      $ref: "./schemas/models/item.yml"
+      $ref: "./schemas/models/item.yml#/Item"
     # requests
     CreateUserRequest:
-      $ref: "./schemas/requests/user/create.yml"
+      $ref: "./schemas/requests/user/create.yml#/CreateUserRequest"
     UpdateUserRequest:
-      $ref: "./schemas/requests/user/update.yml"
+      $ref: "./schemas/requests/user/update.yml#/UpdateUserRequest"
     CreateAffiliateRequest:
-      $ref: "./schemas/requests/affiliate/create.yml"
+      $ref: "./schemas/requests/affiliate/create.yml#/CreateAffiliateRequest"
     UpdateAffiliateRequest:
-      $ref: "./schemas/requests/affiliate/update.yml"
+      $ref: "./schemas/requests/affiliate/update.yml#/UpdateAffiliateRequest"
     CreateItemRequest:
-      $ref: "./schemas/requests/item/create.yml"
+      $ref: "./schemas/requests/item/create.yml#/CreateItemRequest"
     UpdateItemRequest:
-      $ref: "./schemas/requests/item/update.yml"
+      $ref: "./schemas/requests/item/update.yml#/UpdateItemRequest"

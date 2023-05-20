@@ -9,7 +9,7 @@ get:
           schema:
             type: array
             items:
-              $ref: "../../schemas/models/user.yml"
+              $ref: "../../schemas/models/user.yml#/User"
 post:
   tags:
     - User
@@ -19,7 +19,7 @@ post:
       application/json:
         schema:
           type: object
-          $ref: "../../schemas/requests/user/create.yml"
+          $ref: "../../schemas/requests/user/create.yml#/CreateUserRequest"
   responses:
     "200":
       description: Success

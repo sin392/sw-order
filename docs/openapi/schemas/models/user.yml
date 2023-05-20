@@ -1,51 +1,52 @@
-type: object
-description: 担当者
-x-tablename: users
-properties:
-  id:
-    type: string
-    maxLength: 36
-    format: uuid
-    description: ユーザID
-    x-primary-key: true
-  first_name:
-    type: string
-    maxLength: 255
-    description: 名
-    example: 太郎
-  last_name:
-    type: string
-    maxLength: 255
-    description: 姓
-    example: 山田
-  tel:
-    type: string
-    maxLength: 13
-    description: 電話番号
-    example: 000-0000-0000
-  email:
-    type: string
-    maxLength: 255
-    description: メールアドレス
-    example: sample@sample.com
-  created_at:
-    type: string
-    format: date-time
-    x-server-default: Now()
-    description: 作成日
-  updated_at:
-    type: string
-    format: date-time
-    x-server-default: Now()
-    description: 更新日
-  affiliate:
-    allOf:
-      - $ref: "./affiliate.yml"
-      - x-backref: users
-required:
-  - id
-  - first_name
-  - last_name
-  - tel
-  - created_at
-  - updated_at
+User:
+  type: object
+  description: 担当者
+  x-tablename: users
+  properties:
+    id:
+      type: string
+      maxLength: 36
+      format: uuid
+      description: ユーザID
+      x-primary-key: true
+    first_name:
+      type: string
+      maxLength: 255
+      description: 名
+      example: 太郎
+    last_name:
+      type: string
+      maxLength: 255
+      description: 姓
+      example: 山田
+    tel:
+      type: string
+      maxLength: 13
+      description: 電話番号
+      example: 000-0000-0000
+    email:
+      type: string
+      maxLength: 255
+      description: メールアドレス
+      example: sample@sample.com
+    created_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 作成日
+    updated_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 更新日
+    affiliate:
+      allOf:
+        - $ref: "./affiliate.yml#/Affiliate"
+        - x-backref: users
+  required:
+    - id
+    - first_name
+    - last_name
+    - tel
+    - created_at
+    - updated_at
