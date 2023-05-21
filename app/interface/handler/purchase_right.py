@@ -12,7 +12,7 @@ class IPurchaseRightUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: CreatePurchaseRightRequest) -> None:
+    def save(self, body: CreatePurchaseRightRequest) -> str:
         raise NotImplementedError()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class PurchaseRightHandler:
     def read_purchase_right(self, purchase_right_id: str) -> PurchaseRight:
         return self.usecase.find(purchase_right_id)
 
-    def create_purchase_right(self, body: CreatePurchaseRightRequest) -> None:
+    def create_purchase_right(self, body: CreatePurchaseRightRequest) -> str:
         return self.usecase.save(body)
 
     def update_purchase_right(self, purchase_right_id: str, body: CreatePurchaseRightRequest) -> None:

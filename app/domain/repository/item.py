@@ -10,7 +10,7 @@ class IItemRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, item: ItemDOM) -> None:
+    def save(self, item: ItemDOM) -> str:
         raise NotImplementedError()
 
     @abstractmethod

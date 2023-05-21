@@ -10,7 +10,7 @@ class IPurchaseRightRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, purchase: PurchaseRightDOM) -> None:
+    def save(self, purchase: PurchaseRightDOM) -> str:
         raise NotImplementedError()
 
     @abstractmethod

@@ -10,7 +10,7 @@ class IAffiliateRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, affiliate: AffiliateDOM) -> None:
+    def save(self, affiliate: AffiliateDOM) -> str:
         raise NotImplementedError()
 
     @abstractmethod

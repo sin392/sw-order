@@ -18,7 +18,7 @@ class UserRepository(IUserRepository):
         orm_user = self.db.query(User).get(user_id)
         return orm_to_dom(UserDOM, orm_user) if orm_user else None
 
-    def save(self, user: UserDOM) -> None:
+    def save(self, user: UserDOM) -> str:
         orm_user = User(**user.to_rdb_dict())
         try:
             self.db.add(orm_user)
@@ -28,6 +28,7 @@ class UserRepository(IUserRepository):
             raise e
 
         self.db.commit()
+        return orm_user.id
 
     def update(self, user: UserDOM) -> None:
         try:

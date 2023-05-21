@@ -10,7 +10,7 @@ class IOrderItemRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, order: OrderItemDOM) -> None:
+    def save(self, order: OrderItemDOM) -> str:
         raise NotImplementedError()
 
     @abstractmethod

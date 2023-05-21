@@ -12,7 +12,7 @@ class IAffiliateUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: CreateAffiliateRequest) -> None:
+    def save(self, body: CreateAffiliateRequest) -> str:
         raise NotImplementedError()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class AffiliateHandler:
     def read_affiliate(self, affiliate_id: str) -> Affiliate:
         return self.usecase.find(affiliate_id)
 
-    def create_affiliate(self, body: CreateAffiliateRequest) -> None:
+    def create_affiliate(self, body: CreateAffiliateRequest) -> str:
         return self.usecase.save(body)
 
     def update_affiliate(self, affiliate_id: str, body: CreateAffiliateRequest) -> None:

@@ -23,7 +23,7 @@ class OrderItemUsecase(IOrderItemUsecase):
         dom_order = self.orderItemRepo.find(order_item_id)
         return dom_to_dto(OrderItem, dom_order)
 
-    def save(self, body: CreateOrderItemRequest) -> None:
+    def save(self, body: CreateOrderItemRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         order_id = params["order_id"]
         item_id = params["item_id"]

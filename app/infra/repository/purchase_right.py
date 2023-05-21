@@ -19,7 +19,7 @@ class PurchaseRightRepository(IPurchaseRightRepository):
             PurchaseRight).get(purchase_right_id)
         return orm_to_dom(PurchaseRightDOM, orm_purchase_right) if orm_purchase_right else None
 
-    def save(self, purchase_right: PurchaseRightDOM) -> None:
+    def save(self, purchase_right: PurchaseRightDOM) -> str:
         orm_purchase_right = PurchaseRight(**purchase_right.to_rdb_dict())
         try:
             self.db.add(orm_purchase_right)
@@ -29,6 +29,7 @@ class PurchaseRightRepository(IPurchaseRightRepository):
             raise e
 
         self.db.commit()
+        return orm_purchase_right.id
 
     def update(self, purchase_right: PurchaseRightDOM) -> None:
         try:

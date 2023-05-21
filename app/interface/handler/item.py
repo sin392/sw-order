@@ -12,7 +12,7 @@ class IItemUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: CreateItemRequest) -> None:
+    def save(self, body: CreateItemRequest) -> str:
         raise NotImplementedError()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class ItemHandler:
     def read_item(self, item_id: str) -> Item:
         return self.usecase.find(item_id)
 
-    def create_item(self, body: CreateItemRequest) -> None:
+    def create_item(self, body: CreateItemRequest) -> str:
         return self.usecase.save(body)
 
     def update_item(self, item_id: str, body: CreateItemRequest) -> None:

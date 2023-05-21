@@ -18,7 +18,7 @@ class ItemRepository(IItemRepository):
         orm_item = self.db.query(Item).get(item_id)
         return orm_to_dom(ItemDOM, orm_item) if orm_item else None
 
-    def save(self, item: ItemDOM) -> None:
+    def save(self, item: ItemDOM) -> str:
         orm_item = Item(**item.to_rdb_dict())
         try:
             self.db.add(orm_item)
@@ -28,6 +28,7 @@ class ItemRepository(IItemRepository):
             raise e
 
         self.db.commit()
+        return orm_item.id
 
     def update(self, item: ItemDOM) -> None:
         try:

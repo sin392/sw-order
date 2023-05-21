@@ -20,7 +20,7 @@ class UserUsecase(IUserUsecase):
         dom_user = self.userRepo.find(user_id)
         return dom_to_dto(User, dom_user)
 
-    def save(self, body: CreateUserRequest) -> None:
+    def save(self, body: CreateUserRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         user = UserDOM(**params)
         affiliate_id = body.affiliate_id

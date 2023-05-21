@@ -12,7 +12,7 @@ class IOrderUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: CreateOrderRequest) -> None:
+    def save(self, body: CreateOrderRequest) -> str:
         raise NotImplementedError()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class OrderHandler:
     def read_order(self, order_id: str) -> Order:
         return self.usecase.find(order_id)
 
-    def create_order(self, body: CreateOrderRequest) -> None:
+    def create_order(self, body: CreateOrderRequest) -> str:
         return self.usecase.save(body)
 
     def update_order(self, order_id: str, body: CreateOrderRequest) -> None:

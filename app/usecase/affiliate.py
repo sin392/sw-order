@@ -19,7 +19,7 @@ class AffiliateUsecase(IAffiliateUsecase):
         dom_affiliate = self.repo.find(affiliate_id)
         return dom_to_dto(Affiliate, dom_affiliate)
 
-    def save(self, body: CreateAffiliateRequest) -> None:
+    def save(self, body: CreateAffiliateRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         affiliate = AffiliateDOM(**params)
         return self.repo.save(affiliate)

@@ -25,7 +25,7 @@ class OrderUsecase(IOrderUsecase):
         dom_order = self.orderRepo.find(order_id)
         return dom_to_dto(Order, dom_order)
 
-    def save(self, body: CreateOrderRequest) -> None:
+    def save(self, body: CreateOrderRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         affiliate_id = params["affiliate_id"]
         user_id = params["user_id"]

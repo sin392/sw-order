@@ -18,7 +18,7 @@ class OrderRepository(IOrderRepository):
         orm_order = self.db.query(Order).get(order_id)
         return orm_to_dom(OrderDOM, orm_order) if orm_order else None
 
-    def save(self, order: OrderDOM) -> None:
+    def save(self, order: OrderDOM) -> str:
         orm_order = Order(**order.to_rdb_dict())
         try:
             self.db.add(orm_order)
@@ -28,6 +28,7 @@ class OrderRepository(IOrderRepository):
             raise e
 
         self.db.commit()
+        return orm_order.id
 
     def update(self, order: OrderDOM) -> None:
         try:

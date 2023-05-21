@@ -18,7 +18,7 @@ class AffiliateRepository(IAffiliateRepository):
         orm_affiliate = self.db.query(Affiliate).get(affiliate_id)
         return orm_to_dom(AffiliateDOM, orm_affiliate) if orm_affiliate else None
 
-    def save(self, affiliate: AffiliateDOM) -> None:
+    def save(self, affiliate: AffiliateDOM) -> str:
         orm_affiliate = Affiliate(**affiliate.to_rdb_dict())
         try:
             self.db.add(orm_affiliate)
@@ -28,6 +28,7 @@ class AffiliateRepository(IAffiliateRepository):
             raise e
 
         self.db.commit()
+        return orm_affiliate.id
 
     def update(self, affiliate: AffiliateDOM) -> None:
         try:

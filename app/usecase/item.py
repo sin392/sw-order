@@ -19,7 +19,7 @@ class ItemUsecase(IItemUsecase):
         dom_item = self.repo.find(item_id)
         return dom_to_dto(Item, dom_item)
 
-    def save(self, body: CreateItemRequest) -> None:
+    def save(self, body: CreateItemRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         item = ItemDOM(**params)
         return self.repo.save(item)

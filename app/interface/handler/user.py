@@ -12,7 +12,7 @@ class IUserUsecase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def save(self, body: CreateUserRequest) -> None:
+    def save(self, body: CreateUserRequest) -> str:
         raise NotImplementedError()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class UserHandler:
     def read_user(self, user_id: str) -> User:
         return self.usecase.find(user_id)
 
-    def create_user(self, body: CreateUserRequest) -> None:
+    def create_user(self, body: CreateUserRequest) -> str:
         return self.usecase.save(body)
 
     def update_users(self, user_id: str, body: CreateUserRequest) -> None:

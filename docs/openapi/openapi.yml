@@ -57,7 +57,11 @@ paths:
               $ref: "#/components/schemas/CreateUserRequest"
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -179,11 +183,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: "#/components/schemas/CreateAffiliateRequest"
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -307,7 +314,11 @@ paths:
               $ref: "./components/schemas/item.yml#/CreateItemRequest"
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -429,11 +440,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: "./components/schemas/order.yml#/CreateOrderRequest"
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -568,11 +582,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: "./components/schemas/order_item.yml#/CreateOrderItemRequest"
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -714,7 +731,11 @@ paths:
               $ref: ./components/schemas/purchase_right.yml#/CreatePurchaseRightRequest
       responses:
         200:
-          $ref: ./components/responses.yml#/responses/200
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -741,7 +762,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./components/schemas/purchase_right.yml#/PurchaseRight
+                $ref: "#/components/schemas/UUID"
         400:
           $ref: ./components/responses.yml#/responses/400
         401:
@@ -809,39 +830,41 @@ paths:
 # 名称競合回避のためここでは先頭に"_"をつける
 components:
   schemas:
+    UUID:
+      $ref: components/schemas/commons/uuid.yml#/UUID
     User:
-      $ref: "./components/schemas/user.yml#/User"
+      $ref: ./components/schemas/user.yml#/User
     Affiliate:
-      $ref: "./components/schemas/affiliate.yml#/Affiliate"
+      $ref: ./components/schemas/affiliate.yml#/Affiliate
     Item:
-      $ref: "./components/schemas/item.yml#/Item"
+      $ref: ./components/schemas/item.yml#/Item
     Order:
-      $ref: "./components/schemas/order.yml#/Order"
+      $ref: ./components/schemas/order.yml#/Order
     OrderItem:
-      $ref: "./components/schemas/order_item.yml#/OrderItem"
+      $ref: ./components/schemas/order_item.yml#/OrderItem
     PurchaseRight:
-      $ref: "./components/schemas/purchase_right.yml#/PurchaseRight"
+      $ref: ./components/schemas/purchase_right.yml#/PurchaseRight
     CreateUserRequest:
-      $ref: "./components/schemas/user.yml#/CreateUserRequest"
+      $ref: ./components/schemas/user.yml#/CreateUserRequest
     UpdateUserRequest:
-      $ref: "./components/schemas/user.yml#/UpdateUserRequest"
+      $ref: ./components/schemas/user.yml#/UpdateUserRequest
     CreateAffiliateRequest:
-      $ref: "./components/schemas/affiliate.yml#/CreateAffiliateRequest"
+      $ref: ./components/schemas/affiliate.yml#/CreateAffiliateRequest
     UpdateAffiliateRequest:
-      $ref: "./components/schemas/affiliate.yml#/UpdateAffiliateRequest"
+      $ref: ./components/schemas/affiliate.yml#/UpdateAffiliateRequest
     CreateItemRequest:
-      $ref: "./components/schemas/item.yml#/CreateItemRequest"
+      $ref: ./components/schemas/item.yml#/CreateItemRequest
     UpdateItemRequest:
-      $ref: "./components/schemas/item.yml#/UpdateItemRequest"
+      $ref: ./components/schemas/item.yml#/UpdateItemRequest
     CreateOrderRequest:
-      $ref: "./components/schemas/order.yml#/CreateOrderRequest"
+      $ref: ./components/schemas/order.yml#/CreateOrderRequest
     UpdateOrderRequest:
-      $ref: "./components/schemas/order.yml#/UpdateOrderRequest"
+      $ref: ./components/schemas/order.yml#/UpdateOrderRequest
     CreateOrderItemRequest:
-      $ref: "./components/schemas/order_item.yml#/CreateOrderItemRequest"
+      $ref: ./components/schemas/order_item.yml#/CreateOrderItemRequest
     UpdateOrderItemRequest:
-      $ref: "./components/schemas/order_item.yml#/UpdateOrderItemRequest"
+      $ref: ./components/schemas/order_item.yml#/UpdateOrderItemRequest
     CreatePurchaseRightRequest:
-      $ref: "./components/schemas/purchase_right.yml#/CreatePurchaseRightRequest"
+      $ref: ./components/schemas/purchase_right.yml#/CreatePurchaseRightRequest
     UpdatePurchaseRightRequest:
-      $ref: "./components/schemas/purchase_right.yml#/UpdatePurchaseRightRequest"
+      $ref: ./components/schemas/purchase_right.yml#/UpdatePurchaseRightRequest

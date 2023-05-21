@@ -23,7 +23,7 @@ class PurchaseRightUsecase(IPurchaseRightUsecase):
         dom_order = self.purchaseRightRepo.find(order_id)
         return dom_to_dto(PurchaseRight, dom_order)
 
-    def save(self, body: CreatePurchaseRightRequest) -> None:
+    def save(self, body: CreatePurchaseRightRequest) -> str:
         params = {**body.dict(), "id": uuid4()}
         affiliate_id = params["affiliate_id"]
         item_id = params["item_id"]
