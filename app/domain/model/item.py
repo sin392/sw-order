@@ -39,7 +39,7 @@ class ItemDOM(BaseModel):
     @root_validator
     def check_start_end(cls, values):
         start, end = values.get('sales_start'), values.get('sales_end')
-        if (start and end) and start < end:
+        if (start and end) and start > end:
             raise ValueError('sales_endにはsales_startより後の日時を指定してください')
         return values
 
