@@ -160,7 +160,12 @@ UpdateItemRequest:
       example: http://localhost:8000/static/no-image.png
     category:
       type: integer
-      description: カテゴリ(0:缶バッジ, -1:その他)
+      description: カテゴリ(0:缶バッジ, 1:スタンプ帳, -1:その他)
+      minimum: -1
+      example: 0
+    type:
+      type: integer
+      description: タイプ(0:通常, 1:限定, -1:その他)
       minimum: -1
       example: 0
     unit_price:
