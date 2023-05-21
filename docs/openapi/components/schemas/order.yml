@@ -57,7 +57,7 @@ Order:
     affiliate:
       $ref: "./affiliate.yml#/Affiliate"
       allOf:
-        - x-backref: users
+        - x-backref: orders
         - x-openalchemy:
           load_only:
             - id
