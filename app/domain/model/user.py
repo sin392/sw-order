@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from pydantic import BaseModel, validator
@@ -24,7 +24,7 @@ class UserDOM(BaseModel):
     created_at: Optional[datetime]  # server_default
     updated_at: Optional[datetime]  # server_default
     affiliate: Optional[AffiliateDOM]
-    orders: Optional[_ID]
+    orders: Optional[List[_ID]]
 
     class Config:
         orm_mode = True

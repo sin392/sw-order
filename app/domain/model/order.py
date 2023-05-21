@@ -27,7 +27,8 @@ class OrderDOM(BaseModel):
     updated_at: Optional[datetime]  # server_default
     affiliate: AffiliateDOM
     user: UserDOM
-    items: List[_ID]
+    # 注文明細の持たせ方はもう少し検討が必要...
+    order_items: Optional[List[_ID]]
 
     class Config:
         orm_mode = True

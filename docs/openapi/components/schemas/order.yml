@@ -59,15 +59,15 @@ Order:
       allOf:
         - x-backref: orders
         - x-openalchemy:
-          load_only:
-            - id
+            load_only:
+              - id
     user:
       $ref: "./user.yml#/User"
       allOf:
         - x-backref: orders
         - x-openalchemy:
-          load_only:
-            - id
+            load_only:
+              - id
     order_items:
       readOnly: true
       type: array

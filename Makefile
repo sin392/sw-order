@@ -11,7 +11,8 @@ generate-revision:
 	cd ${db_dir} && alembic revision --autogenerate -m ${revision}
 
 generate-schema:
-	openalchemy generate ${openapi_dir}/openapi.yml ${app_dir}/infra/schema.py
+	# NOTE: relationshipを変更した場合はinfra/schema.pyも更新すること
+	openalchemy generate ${openapi_dir}/openapi.yml ${app_dir}/infra/schema_gen.py
 
 generate-code:
 	# NOTE: routersを有効化するとtemplateが機能しなくなる（デフォルトが強制される）

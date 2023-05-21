@@ -5,7 +5,7 @@ from injector import inject
 
 from domain.repository import IPurchaseRightRepository
 from domain.model import PurchaseRightDOM
-from infra.schema import PurchaseRight
+from infra.schema import PatchedPurchaseRight as PurchaseRight
 from .util import orm_to_dom, orm_list_to_dom_list
 
 

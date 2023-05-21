@@ -3,7 +3,9 @@
 # openalchemy
 * `x-tablename`タグが設定されたデータスキーマをエントリポイントとなるopenalchemy.ymlに`/components/schemas/<model>`のような形式で置く必要がある　→　分割したファイルを$refで集約
 * 上記の集約の際、分割ファイルとエントリポイントでスキーマ名が同じだと名前衝突を避けるために生成されるクラスに数字がついてしまう　→　分割ファイルのクラス名には先頭にアンダースコアつけて回避
-* x-backrefはallOfブロックの中に存在する必要がある（OAS3.1の記法的にはallOfなくてもよさそうにみえる点に注意）
+* x-backrefはallOfブロックの中に存在する必要がある（OAS3.1の記法的にはallOfなくてもよさそうにみえる点に注意）→ 生成は通るが機能しない...
+結局backrefは生成したスキーマに対して/infra/schema.pyでパッチをあてることに
+以前openapi側での設定は必要なので注意
 
 # fastapi-code-generator
 * relationshipを張る場合かつ分割したファイルを$refで読みこむ場合、$refだけはallOfの外にださないとファイル探索に失敗する（OAS3.1以降のみ$refと他のタグを同じ階層に書ける）

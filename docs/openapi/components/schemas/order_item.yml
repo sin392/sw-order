@@ -39,15 +39,15 @@ OrderItem:
       allOf:
         - x-backref: order_items
         - x-openalchemy:
-          load_only:
-            - id
+            load_only:
+              - id
     item:
       # backrefは不要
       $ref: "./item.yml#/Item"
       allOf:
         - x-openalchemy:
-          load_only:
-            - id
+            load_only:
+              - id
   required:
     - id
     - quantity

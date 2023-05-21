@@ -5,7 +5,7 @@ from injector import inject
 
 from domain.repository import IOrderItemRepository
 from domain.model import OrderItemDOM
-from infra.schema import OrderItem
+from infra.schema import PatchedOrderItem as OrderItem
 from .util import orm_to_dom, orm_list_to_dom_list
 
 

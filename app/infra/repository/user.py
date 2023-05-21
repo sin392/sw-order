@@ -5,7 +5,7 @@ from injector import inject
 
 from domain.repository import IUserRepository
 from domain.model import UserDOM
-from infra.schema import User
+from infra.schema import PatchedUser as User
 from .util import orm_to_dom, orm_list_to_dom_list
 
 
@@ -55,4 +55,5 @@ class UserRepository(IUserRepository):
 
     def list(self) -> List[UserDOM]:
         orm_users = self.db.query(User).all()
+        print(self.db.query(User).first())
         return orm_list_to_dom_list(UserDOM, orm_users)

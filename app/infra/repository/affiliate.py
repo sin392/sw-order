@@ -5,7 +5,7 @@ from injector import inject
 
 from domain.repository.affiliate import IAffiliateRepository
 from domain.model.affiliate import AffiliateDOM
-from infra.schema import Affiliate
+from infra.schema import PatchedAffiliate as Affiliate
 from .util import orm_to_dom, orm_list_to_dom_list
 
 
