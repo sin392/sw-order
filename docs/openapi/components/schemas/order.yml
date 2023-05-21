@@ -1,0 +1,159 @@
+OrderID:
+  type: object
+  properties:
+    id:
+      $ref: "./commons/uuid.yml#/UUID"
+      description: 注文ID
+      x-primary-key: true
+  required:
+    - id
+Order:
+  type: object
+  description: 注文
+  x-tablename: orders
+  properties:
+    id:
+      type: string
+      minLength: 36
+      maxLength: 36
+      format: uuid
+      description: 注文ID
+      x-primary-key: true
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 届け先郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 届け先住所
+      example: 静岡県沼津市上土町36
+    approved_flag:
+      type: boolean
+      description: 承認フラグ
+      default: false
+      example: false
+    # ordered_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 注文日時
+    # approved_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 承認日時
+    created_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 作成日
+    updated_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 更新日
+    affiliate:
+      $ref: "./affiliate.yml#/Affiliate"
+      allOf:
+        - x-backref: users
+        - x-openalchemy:
+          load_only:
+            - id
+    user:
+      $ref: "./user.yml#/User"
+      allOf:
+        - x-backref: orders
+        - x-openalchemy:
+          load_only:
+            - id
+    order_items:
+      readOnly: true
+      type: array
+      items:
+        $ref: "./order_item.yml#/OrderItemID"
+  required:
+    - id
+    - postcode
+    - address
+    - approved_flag
+    - created_at
+    - updated_at
+    - affiliate
+    - user
+CreateOrderRequest:
+  type: object
+  description: 注文
+  properties:
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 届け先郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 届け先住所
+      example: 静岡県沼津市上土町36
+    approved_flag:
+      type: boolean
+      description: 承認フラグ
+      default: false
+      example: false
+    # ordered_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 注文日時
+    # approved_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 承認日時
+    affiliate_id:
+      type: string
+      minLength: 36
+      maxLength: 36
+      format: uuid
+      description: 加盟組織ID
+    user_id:
+      type: string
+      minLength: 36
+      maxLength: 36
+      format: uuid
+      description: ユーザID
+  required:
+    - postcode
+    - address
+    - affiliate_id
+    - user_id
+UpdateOrderRequest:
+  type: object
+  description: 注文
+  properties:
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 届け先郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 届け先住所
+      example: 静岡県沼津市上土町36
+    approved_flag:
+      type: boolean
+      description: 承認フラグ
+      default: false
+      example: false
+    # ordered_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 注文日時
+    # approved_datetime:
+    #   type: string
+    #   format: date-time
+    #   description: 承認日時

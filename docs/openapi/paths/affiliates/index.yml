@@ -1,25 +1,42 @@
 get:
+  summary: 加盟組織一覧API
+  operationId: readAffiliates
   tags:
     - Affiliate
+  security: []
   responses:
-    "200":
+    200:
+      # description: Success
       description: Success
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: "../../schemas/affiliate.yml#/schemas/Affiliate"
+              $ref: "../../components/schemas/affiliate.yml#/Affiliate"
+    401:
+      $ref: ../../components/responses.yml#/responses/401
+    403:
+      $ref: ../../components/responses.yml#/responses/403
 post:
+  summary: 加盟組織作成API
+  operationId: createAffiliate
   tags:
     - Affiliate
+  security: []
   requestBody:
     required: true
     content:
       application/json:
         schema:
           type: object
-          $ref: "../../schemas/affiliate.yml#/schemas/CreateAffiliateRequest"
+          $ref: "../../components/schemas/affiliate.yml#/CreateAffiliateRequest"
   responses:
-    "200":
-      description: Success
+    200:
+      $ref: ../../components/responses.yml#/responses/200
+    400:
+      $ref: ../../components/responses.yml#/responses/400
+    401:
+      $ref: ../../components/responses.yml#/responses/401
+    403:
+      $ref: ../../components/responses.yml#/responses/403

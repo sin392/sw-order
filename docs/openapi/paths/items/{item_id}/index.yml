@@ -1,6 +1,9 @@
 get:
+  summary: 商品取得API
+  operationId: readItem
   tags:
     - Item
+  security: []
   parameters:
     - in: path
       name: item_id
@@ -9,16 +12,26 @@ get:
         type: string
         format: uuid
   responses:
-    "200":
+    200:
       description: Success
       content:
         application/json:
           schema:
-            type: object
-            $ref: "../../../schemas/item.yml#/schemas/Item"
+            $ref: "../../../components/schemas/item.yml#/Item"
+    400:
+      $ref: ../../../components/responses.yml#/responses/400
+    401:
+      $ref: ../../../components/responses.yml#/responses/401
+    403:
+      $ref: ../../../components/responses.yml#/responses/403
+    404:
+      $ref: ../../../components/responses.yml#/responses/404
 put:
+  summary: 商品更新API
+  operationId: updateItem
   tags:
     - Item
+  security: []
   parameters:
     - in: path
       name: item_id
@@ -31,14 +44,24 @@ put:
     content:
       application/json:
         schema:
-          type: object
-          $ref: "../../../schemas/item.yml#/schemas/UpdateItemRequest"
+          $ref: "../../../components/schemas/item.yml#/UpdateItemRequest"
   responses:
-    "200":
-      description: Success
+    200:
+      $ref: ../../../components/responses.yml#/responses/200
+    400:
+      $ref: ../../../components/responses.yml#/responses/400
+    401:
+      $ref: ../../../components/responses.yml#/responses/401
+    403:
+      $ref: ../../../components/responses.yml#/responses/403
+    404:
+      $ref: ../../../components/responses.yml#/responses/404
 delete:
+  summary: 商品削除API
+  operationId: deleteItem
   tags:
     - Item
+  security: []
   parameters:
     - in: path
       name: item_id
@@ -47,5 +70,13 @@ delete:
         type: string
         format: uuid
   responses:
-    "200":
-      description: Success
+    200:
+      $ref: ../../../components/responses.yml#/responses/200
+    400:
+      $ref: ../../../components/responses.yml#/responses/400
+    401:
+      $ref: ../../../components/responses.yml#/responses/401
+    403:
+      $ref: ../../../components/responses.yml#/responses/403
+    404:
+      $ref: ../../../components/responses.yml#/responses/404

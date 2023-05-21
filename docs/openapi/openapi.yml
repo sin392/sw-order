@@ -2,79 +2,197 @@ openapi: "3.1.0"
 info:
   title: API Title
   version: "1.0"
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+x-user:
+  name: User
+  description: ユーザ
 tags:
   - name: User
+    description: ユーザ
   - name: Affiliate
+    description: 加盟組織
   - name: Item
+    description: 商品
   - name: Order
+    description: 注文
   - name: OrderItem
+    description: 注文明細
   - name: PurchaseRight
+    description: 購入権
 servers:
   - url: http://localhost:8000
-
 paths:
   /users:
-    $ref: "./paths/users/index.yml"
+    get:
+      $ref: "./paths/users/index.yml#/get"
+      tags:
+        - User
+    post:
+      $ref: "./paths/users/index.yml#/post"
+      tags:
+        - User
   /users/{user_id}:
-    $ref: "./paths/users/{user_id}/index.yml"
+    get:
+      $ref: "./paths/users/{user_id}/index.yml#/get"
+      tags:
+        - User
+    put:
+      $ref: "./paths/users/{user_id}/index.yml#/put"
+      tags:
+        - User
+    delete:
+      $ref: "./paths/users/{user_id}/index.yml#/delete"
+      tags:
+        - User
   /affiliates:
-    $ref: "./paths/affiliates/index.yml"
+    get:
+      $ref: "./paths/affiliates/index.yml#/get"
+      tags:
+        - Affiliate
+    post:
+      $ref: "./paths/affiliates/index.yml#/post"
+      tags:
+        - Affiliate
   /affiliates/{affiliate_id}:
-    $ref: "./paths/affiliates/{affiliate_id}/index.yml"
+    get:
+      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/get"
+      tags:
+        - Affiliate
+    put:
+      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/put"
+      tags:
+        - Affiliate
+    delete:
+      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/delete"
+      tags:
+        - Affiliate
   /items:
-    $ref: "./paths/items/index.yml"
+    get:
+      $ref: "./paths/items/index.yml#/get"
+      tags:
+        - Item
+    post:
+      $ref: "./paths/items/index.yml#/post"
+      tags:
+        - Item
   /items/{item_id}:
-    $ref: "./paths/items/{item_id}/index.yml"
+    get:
+      $ref: "./paths/items/{item_id}/index.yml#/get"
+      tags:
+        - Item
+    put:
+      $ref: "./paths/items/{item_id}/index.yml#/put"
+      tags:
+        - Item
+    delete:
+      $ref: "./paths/items/{item_id}/index.yml#/delete"
+      tags:
+        - Item
   /orders:
-    $ref: "./paths/orders/index.yml"
+    get:
+      $ref: "./paths/orders/index.yml#/get"
+      tags:
+        - Order
+    post:
+      $ref: "./paths/orders/index.yml#/post"
+      tags:
+        - Order
   /orders/{order_id}:
-    $ref: "./paths/orders/{order_id}/index.yml"
+    get:
+      $ref: "./paths/orders/{order_id}/index.yml#/get"
+      tags:
+        - Order
+    put:
+      $ref: "./paths/orders/{order_id}/index.yml#/put"
+      tags:
+        - Order
+    delete:
+      $ref: "./paths/orders/{order_id}/index.yml#/delete"
+      tags:
+        - Order
   /orders/{order_id}/items:
-    $ref: "./paths/order_items/index.yml"
+    get:
+      $ref: "./paths/order_items/index.yml#/get"
+      tags:
+        - OrderItem
+    post:
+      $ref: "./paths/order_items/index.yml#/post"
+      tags:
+        - OrderItem
   /orders/{order_id}/items/{order_item_id}:
-    $ref: "./paths/order_items/{order_item_id}/index.yml"
+    get:
+      $ref: "./paths/order_items/{order_item_id}/index.yml#/get"
+      tags:
+        - OrderItem
+    put:
+      $ref: "./paths/order_items/{order_item_id}/index.yml#/put"
+      tags:
+        - OrderItem
+    delete:
+      $ref: "./paths/order_items/{order_item_id}/index.yml#/delete"
+      tags:
+        - OrderItem
   /purchase_rights:
-    $ref: "./paths/purchase_rights/index.yml"
+    get:
+      $ref: "./paths/purchase_rights/index.yml#/get"
+      tags:
+        - PurchaseRight
+    post:
+      $ref: "./paths/purchase_rights/index.yml#/post"
+      tags:
+        - PurchaseRight
   /purchase_rights/{purchase_right_id}:
-    $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml"
-
+    get:
+      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/get"
+      tags:
+        - PurchaseRight
+    put:
+      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/put"
+      tags:
+        - PurchaseRight
+    delete:
+      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/delete"
+      tags:
+        - PurchaseRight
 # openalchemyのために少なくともテーブルクラスは列挙しないといけない
 # 名称競合回避のためここでは先頭に"_"をつける
 components:
   schemas:
     User:
-      $ref: "./schemas/user.yml#/schemas/User"
+      $ref: "./components/schemas/user.yml#/User"
     Affiliate:
-      $ref: "./schemas/affiliate.yml#/schemas/Affiliate"
+      $ref: "./components/schemas/affiliate.yml#/Affiliate"
     Item:
-      $ref: "./schemas/item.yml#/schemas/Item"
+      $ref: "./components/schemas/item.yml#/Item"
     Order:
-      $ref: "./schemas/order.yml#/schemas/Order"
+      $ref: "./components/schemas/order.yml#/Order"
     OrderItem:
-      $ref: "./schemas/order_item.yml#/schemas/OrderItem"
+      $ref: "./components/schemas/order_item.yml#/OrderItem"
     PurchaseRight:
-      $ref: "./schemas/purchase_right.yml#/schemas/PurchaseRight"
+      $ref: "./components/schemas/purchase_right.yml#/PurchaseRight"
     CreateUserRequest:
-      $ref: "./schemas/user.yml#/schemas/CreateUserRequest"
+      $ref: "./components/schemas/user.yml#/CreateUserRequest"
     UpdateUserRequest:
-      $ref: "./schemas/user.yml#/schemas/UpdateUserRequest"
+      $ref: "./components/schemas/user.yml#/UpdateUserRequest"
     CreateAffiliateRequest:
-      $ref: "./schemas/affiliate.yml#/schemas/CreateAffiliateRequest"
+      $ref: "./components/schemas/affiliate.yml#/CreateAffiliateRequest"
     UpdateAffiliateRequest:
-      $ref: "./schemas/affiliate.yml#/schemas/UpdateAffiliateRequest"
+      $ref: "./components/schemas/affiliate.yml#/UpdateAffiliateRequest"
     CreateItemRequest:
-      $ref: "./schemas/item.yml#/schemas/CreateItemRequest"
+      $ref: "./components/schemas/item.yml#/CreateItemRequest"
     UpdateItemRequest:
-      $ref: "./schemas/item.yml#/schemas/UpdateItemRequest"
+      $ref: "./components/schemas/item.yml#/UpdateItemRequest"
     CreateOrderRequest:
-      $ref: "./schemas/order.yml#/schemas/CreateOrderRequest"
+      $ref: "./components/schemas/order.yml#/CreateOrderRequest"
     UpdateOrderRequest:
-      $ref: "./schemas/order.yml#/schemas/UpdateOrderRequest"
+      $ref: "./components/schemas/order.yml#/UpdateOrderRequest"
     CreateOrderItemRequest:
-      $ref: "./schemas/order_item.yml#/schemas/CreateOrderItemRequest"
+      $ref: "./components/schemas/order_item.yml#/CreateOrderItemRequest"
     UpdateOrderItemRequest:
-      $ref: "./schemas/order_item.yml#/schemas/UpdateOrderItemRequest"
+      $ref: "./components/schemas/order_item.yml#/UpdateOrderItemRequest"
     CreatePurchaseRightRequest:
-      $ref: "./schemas/purchase_right.yml#/schemas/CreatePurchaseRightRequest"
+      $ref: "./components/schemas/purchase_right.yml#/CreatePurchaseRightRequest"
     UpdatePurchaseRightRequest:
-      $ref: "./schemas/purchase_right.yml#/schemas/UpdatePurchaseRightRequest"
+      $ref: "./components/schemas/purchase_right.yml#/UpdatePurchaseRightRequest"

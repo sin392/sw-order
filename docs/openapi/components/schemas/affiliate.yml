@@ -1,0 +1,180 @@
+AffiliateID:
+  type: object
+  properties:
+    id:
+      $ref: "./commons/uuid.yml#/UUID"
+      description: 加盟組織ID
+      x-primary-key: true
+  required:
+    - id
+Affiliate:
+  type: object
+  description: 加盟組織
+  x-tablename: affiliates
+  properties:
+    id:
+      type: string
+      minLength: 36
+      maxLength: 36
+      format: uuid
+      description: 加盟組織ID
+      x-primary-key: true
+    name:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 組織名
+      example: 株式会社サンプル
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 住所
+      example: 静岡県沼津市上土町36
+    tel:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: 電話番号
+      example: 000-0000-0000
+    fax:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: FAX番号
+      example: 000-0000-0000
+    email:
+      type: string
+      minLength: 3
+      maxLength: 255
+      description: メールアドレス
+      example: sample@sample.com
+    created_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 作成日
+    updated_at:
+      type: string
+      format: date-time
+      x-server-default: Now()
+      description: 更新日
+    users:
+      readOnly: true
+      type: array
+      items:
+        $ref: "./user.yml#/UserID"
+      # x-openalchemy:
+      #   load_only:
+      #     - id
+    orders:
+      readOnly: true
+      type: array
+      items:
+        $ref: "./order.yml#/OrderID"
+    # available_items:
+    #   true
+    #   type: array
+    #   items:
+    #     allOf:
+    #       - $ref: "./base_id.yml#/BaseID"
+    #       # - x-backref: allowed_affiliates
+    #       #   x-secondary: purchase_rights
+    #       - x-secondary: purchase_rights
+  required:
+    - id
+    - name
+    - postcode
+    - address
+    - tel
+    - created_at
+    - updated_at
+CreateAffiliateRequest:
+  type: object
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 組織名
+      example: 株式会社サンプル
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 住所
+      example: 静岡県沼津市上土町36
+    tel:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: 電話番号
+      example: 000-0000-0000
+    fax:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: FAX番号
+      example: 000-0000-0000
+    email:
+      type: string
+      minLength: 3
+      maxLength: 255
+      description: メールアドレス
+      example: sample@sample.com
+  required:
+    - name
+    - postcode
+    - address
+    - tel
+UpdateAffiliateRequest:
+  type: object
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 組織名
+      example: 株式会社サンプル
+    postcode:
+      type: string
+      minLength: 8
+      maxLength: 8
+      description: 郵便番号
+      example: 000-0000
+    address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      description: 住所
+      example: 静岡県沼津市上土町36
+    tel:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: 電話番号
+      example: 000-0000-0000
+    fax:
+      type: string
+      minLength: 13
+      maxLength: 13
+      description: FAX番号
+      example: 000-0000-0000
+    email:
+      type: string
+      minLength: 3
+      maxLength: 255
+      description: メールアドレス
+      example: sample@sample.com
