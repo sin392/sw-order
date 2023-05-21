@@ -33,17 +33,17 @@ class UserHandler:
     def __init__(self, usecase: IUserUsecase) -> None:
         self.usecase = usecase
 
-    def get_users_user_id(self, user_id: str) -> User:
+    def read_user(self, user_id: str) -> User:
         return self.usecase.find(user_id)
 
-    def post_users(self, body: CreateUserRequest) -> None:
+    def create_user(self, body: CreateUserRequest) -> None:
         return self.usecase.save(body)
 
-    def put_users_user_id(self, user_id: str, body: CreateUserRequest) -> None:
+    def update_users(self, user_id: str, body: CreateUserRequest) -> None:
         return self.usecase.update(user_id, body)
 
-    def delete_users_user_id(self, user_id: str) -> None:
+    def delete_user(self, user_id: str) -> None:
         return self.usecase.delete(user_id)
 
-    def get_users(self) -> List[User]:
+    def read_users(self) -> List[User]:
         return self.usecase.list()

@@ -5,9 +5,9 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-x-user:
-  name: User
-  description: ユーザ
+servers:
+  - url: http://localhost:8000
+
 tags:
   - name: User
     description: ユーザ
@@ -21,141 +21,790 @@ tags:
     description: 注文明細
   - name: PurchaseRight
     description: 購入権
-servers:
-  - url: http://localhost:8000
+
 paths:
   /users:
     get:
-      $ref: "./paths/users/index.yml#/get"
+      summary: ユーザ一覧API
+      operationId: readUsers
       tags:
         - User
+      security: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/users/index.yml#/post"
+      summary: ユーザ作成API
+      operationId: createUser
       tags:
         - User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
   /users/{user_id}:
     get:
-      $ref: "./paths/users/{user_id}/index.yml#/get"
+      summary: ユーザ取得API
+      operationId: readUser
       tags:
         - User
+      security: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/users/{user_id}/index.yml#/put"
+      summary: ユーザ更新API
+      operationId: updateUser
       tags:
         - User
+      security: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/users/{user_id}/index.yml#/delete"
+      summary: ユーザ削除API
+      operationId: deleteUser
       tags:
         - User
+      security: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
   /affiliates:
     get:
-      $ref: "./paths/affiliates/index.yml#/get"
+      summary: 加盟組織一覧API
+      operationId: readAffiliates
       tags:
         - Affiliate
+      security: []
+      responses:
+        200:
+          # description: Success
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Affiliate"
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/affiliates/index.yml#/post"
+      summary: 加盟組織作成API
+      operationId: createAffiliate
       tags:
         - Affiliate
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateAffiliateRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
   /affiliates/{affiliate_id}:
     get:
-      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/get"
+      summary: 加盟組織取得API
+      operationId: readAffiliate
       tags:
         - Affiliate
+      security: []
+      parameters:
+        - in: path
+          name: affiliate_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Affiliate"
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/put"
+      summary: 加盟組織更新API
+      operationId: updateAffiliate
       tags:
         - Affiliate
+      security: []
+      parameters:
+        - in: path
+          name: affiliate_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAffiliateRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/affiliates/{affiliate_id}/index.yml#/delete"
+      summary: 加盟組織削除API
+      operationId: deleteAffiliate
       tags:
         - Affiliate
+      security: []
+      parameters:
+        - in: path
+          name: affiliate_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
   /items:
     get:
-      $ref: "./paths/items/index.yml#/get"
+      summary: 商品一覧API
+      operationId: readItems
       tags:
         - Item
+      security: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Item"
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/items/index.yml#/post"
+      summary: 商品作成API
+      operationId: createItem
       tags:
         - Item
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/item.yml#/CreateItemRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+
   /items/{item_id}:
     get:
-      $ref: "./paths/items/{item_id}/index.yml#/get"
+      summary: 商品取得API
+      operationId: readItem
       tags:
         - Item
+      security: []
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/items/{item_id}/index.yml#/put"
+      summary: 商品更新API
+      operationId: updateItem
       tags:
         - Item
+      security: []
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/item.yml#/UpdateItemRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/items/{item_id}/index.yml#/delete"
+      summary: 商品削除API
+      operationId: deleteItem
       tags:
         - Item
+      security: []
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
   /orders:
     get:
-      $ref: "./paths/orders/index.yml#/get"
+      summary: 注文一覧API
+      operationId: readOrders
       tags:
         - Order
+      security: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./components/schemas/order.yml#/Order"
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/orders/index.yml#/post"
+      summary: 注文作成API
+      operationId: createOrder
       tags:
         - Order
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "./components/schemas/order.yml#/CreateOrderRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
   /orders/{order_id}:
     get:
-      $ref: "./paths/orders/{order_id}/index.yml#/get"
+      summary: 注文取得API
+      operationId: readOrder
       tags:
         - Order
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/order.yml#/Order"
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/orders/{order_id}/index.yml#/put"
+      summary: 注文更新API
+      operationId: updateOrder
       tags:
         - Order
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/order.yml#/UpdateOrderRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/orders/{order_id}/index.yml#/delete"
+      summary: 注文削除API
+      operationId: deleteOrder
       tags:
         - Order
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
   /orders/{order_id}/items:
     get:
-      $ref: "./paths/order_items/index.yml#/get"
+      summary: 注文明細一覧API
+      operationId: readOrderItems
       tags:
         - OrderItem
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./components/schemas/order_item.yml#/OrderItem"
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/order_items/index.yml#/post"
+      summary: 注文明細作成API
+      operationId: createOrderItem
+      security: []
       tags:
         - OrderItem
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "./components/schemas/order_item.yml#/CreateOrderItemRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
   /orders/{order_id}/items/{order_item_id}:
     get:
-      $ref: "./paths/order_items/{order_item_id}/index.yml#/get"
+      summary: 商品明細取得API
+      operationId: readOrderItem
       tags:
         - OrderItem
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: order_item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/order_item.yml#/OrderItem"
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/order_items/{order_item_id}/index.yml#/put"
+      summary: 商品明細更新API
+      operationId: updateOrderItem
       tags:
         - OrderItem
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: order_item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/order_item.yml#/UpdateOrderItemRequest"
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/order_items/{order_item_id}/index.yml#/delete"
+      summary: 商品明細削除API
+      operationId: deleteOrderItem
       tags:
         - OrderItem
+      security: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: order_item_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
   /purchase_rights:
     get:
-      $ref: "./paths/purchase_rights/index.yml#/get"
+      summary: 購入権一覧API
+      operationId: readPurchaseRights
       tags:
         - PurchaseRight
+      security: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./components/schemas/purchase_right.yml#/PurchaseRight
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
     post:
-      $ref: "./paths/purchase_rights/index.yml#/post"
+      summary: 購入権作成API
+      operationId: createPurchaseRight
       tags:
         - PurchaseRight
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./components/schemas/purchase_right.yml#/CreatePurchaseRightRequest
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
   /purchase_rights/{purchase_right_id}:
     get:
-      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/get"
+      summary: 購入権取得API
+      operationId: readPurchaseRight
       tags:
         - PurchaseRight
+      security: []
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/purchase_right.yml#/PurchaseRight
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     put:
-      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/put"
+      summary: 購入権更新API
+      operationId: updatePurchaseRight
       tags:
         - PurchaseRight
+      security: []
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./components/schemas/purchase_right.yml#/UpdatePurchaseRightRequest
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
     delete:
-      $ref: "./paths/purchase_rights/{purchase_right_id}/index.yml#/delete"
+      summary: 購入権削除API
+      operationId: deletePurchaseRight
       tags:
         - PurchaseRight
+      security: []
+      parameters:
+        - in: path
+          name: purchase_right_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: ./components/responses.yml#/responses/200
+        400:
+          $ref: ./components/responses.yml#/responses/400
+        401:
+          $ref: ./components/responses.yml#/responses/401
+        403:
+          $ref: ./components/responses.yml#/responses/403
+        404:
+          $ref: ./components/responses.yml#/responses/404
+
 # openalchemyのために少なくともテーブルクラスは列挙しないといけない
 # 名称競合回避のためここでは先頭に"_"をつける
 components:

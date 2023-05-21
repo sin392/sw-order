@@ -33,17 +33,17 @@ class PurchaseRightHandler:
     def __init__(self, usecase: IPurchaseRightUsecase) -> None:
         self.usecase = usecase
 
-    def get_purchase_rights_purchase_right_id(self, purchase_right_id: str) -> PurchaseRight:
+    def read_purchase_right(self, purchase_right_id: str) -> PurchaseRight:
         return self.usecase.find(purchase_right_id)
 
-    def post_purchase_rights(self, body: CreatePurchaseRightRequest) -> None:
+    def create_purchase_right(self, body: CreatePurchaseRightRequest) -> None:
         return self.usecase.save(body)
 
-    def put_purchase_rights_purchase_right_id(self, purchase_right_id: str, body: CreatePurchaseRightRequest) -> None:
+    def update_purchase_right(self, purchase_right_id: str, body: CreatePurchaseRightRequest) -> None:
         return self.usecase.update(purchase_right_id, body)
 
-    def delete_purchase_rights_purchase_right_id(self, purchase_right_id: str) -> None:
+    def delete_purchase_right(self, purchase_right_id: str) -> None:
         return self.usecase.delete(purchase_right_id)
 
-    def get_purchase_rights(self) -> List[PurchaseRight]:
+    def read_purchase_rights(self) -> List[PurchaseRight]:
         return self.usecase.list()

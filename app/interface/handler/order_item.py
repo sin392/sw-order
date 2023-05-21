@@ -33,17 +33,17 @@ class OrderItemHandler:
     def __init__(self, usecase: IOrderItemUsecase) -> None:
         self.usecase = usecase
 
-    def get_orders_order_id_items_order_item_id(self, order_item_id: str) -> OrderItem:
+    def read_order_item(self, order_item_id: str) -> OrderItem:
         return self.usecase.find(order_item_id)
 
-    def post_orders_order_id_items(self, body: CreateOrderItemRequest) -> None:
+    def create_order_item(self, body: CreateOrderItemRequest) -> None:
         return self.usecase.save(body)
 
-    def put_orders_order_id_items_order_item_id(self, order_item_id: str, body: CreateOrderItemRequest) -> None:
+    def update_order_item(self, order_item_id: str, body: CreateOrderItemRequest) -> None:
         return self.usecase.update(order_item_id, body)
 
-    def delete_orders_order_id_items_order_item_id(self, order_item_id: str) -> None:
+    def delete_order_item(self, order_item_id: str) -> None:
         return self.usecase.delete(order_item_id)
 
-    def get_orders_order_id_items(self) -> List[OrderItem]:
+    def read_order_items(self) -> List[OrderItem]:
         return self.usecase.list()

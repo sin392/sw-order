@@ -33,17 +33,17 @@ class ItemHandler:
     def __init__(self, usecase: IItemUsecase) -> None:
         self.usecase = usecase
 
-    def get_items_item_id(self, item_id: str) -> Item:
+    def read_item(self, item_id: str) -> Item:
         return self.usecase.find(item_id)
 
-    def post_items(self, body: CreateItemRequest) -> None:
+    def create_item(self, body: CreateItemRequest) -> None:
         return self.usecase.save(body)
 
-    def put_items_item_id(self, item_id: str, body: CreateItemRequest) -> None:
+    def update_item(self, item_id: str, body: CreateItemRequest) -> None:
         return self.usecase.update(item_id, body)
 
-    def delete_items_item_id(self, item_id: str) -> None:
+    def delete_item(self, item_id: str) -> None:
         return self.usecase.delete(item_id)
 
-    def get_items(self) -> List[Item]:
+    def read_items(self) -> List[Item]:
         return self.usecase.list()

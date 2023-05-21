@@ -33,17 +33,17 @@ class AffiliateHandler:
     def __init__(self, usecase: IAffiliateUsecase) -> None:
         self.usecase = usecase
 
-    def get_affiliate_affiliate_id(self, affiliate_id: str) -> Affiliate:
+    def read_affiliate(self, affiliate_id: str) -> Affiliate:
         return self.usecase.find(affiliate_id)
 
-    def post_affiliates(self, body: CreateAffiliateRequest) -> None:
+    def create_affiliate(self, body: CreateAffiliateRequest) -> None:
         return self.usecase.save(body)
 
-    def put_affiliates_affiliate_id(self, affiliate_id: str, body: CreateAffiliateRequest) -> None:
+    def update_affiliate(self, affiliate_id: str, body: CreateAffiliateRequest) -> None:
         return self.usecase.update(affiliate_id, body)
 
-    def delete_affiliates_affiliate_id(self, affiliate_id: str) -> None:
+    def delete_affiliate(self, affiliate_id: str) -> None:
         return self.usecase.delete(affiliate_id)
 
-    def get_affiliates(self) -> List[Affiliate]:
+    def read_affiliates(self) -> List[Affiliate]:
         return self.usecase.list()

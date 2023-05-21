@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: a412bd147233
+Revision ID: fe8bc8796ce8
 Revises: 
-Create Date: 2023-05-07 13:36:24.441937
+Create Date: 2023-05-21 04:56:03.021708
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a412bd147233'
+revision = 'fe8bc8796ce8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,6 +56,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_purchase_rights_id'), 'purchase_rights', ['id'], unique=True)
     op.create_table('users',
+    sa.Column('affiliate_id', sa.String(length=36), nullable=True),
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('first_name', sa.String(length=255), nullable=False),
     sa.Column('last_name', sa.String(length=255), nullable=False),
@@ -63,30 +64,29 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
-    sa.Column('affiliate_id', sa.String(length=36), nullable=True),
     sa.ForeignKeyConstraint(['affiliate_id'], ['affiliates.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('orders',
+    sa.Column('affiliate_id', sa.String(length=36), nullable=False),
+    sa.Column('user_id', sa.String(length=36), nullable=False),
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('postcode', sa.String(length=8), nullable=False),
     sa.Column('address', sa.String(length=255), nullable=False),
     sa.Column('approved_flag', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
-    sa.Column('affiliate_id', sa.String(length=36), nullable=False),
-    sa.Column('user_id', sa.String(length=36), nullable=False),
     sa.ForeignKeyConstraint(['affiliate_id'], ['affiliates.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('order_items',
+    sa.Column('order_id', sa.String(length=36), nullable=False),
+    sa.Column('item_id', sa.String(length=36), nullable=False),
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('Now()'), nullable=False),
-    sa.Column('order_id', sa.String(length=36), nullable=False),
-    sa.Column('item_id', sa.String(length=36), nullable=False),
     sa.ForeignKeyConstraint(['item_id'], ['items.id'], ),
     sa.ForeignKeyConstraint(['order_id'], ['orders.id'], ),
     sa.PrimaryKeyConstraint('id')
